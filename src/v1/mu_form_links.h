@@ -2,32 +2,25 @@
 
 #include "./mu_form_link.h"
 
-template <class T>
 //!
 //! \brief The MUFormLinks class
 //!
-class MUFormLinks:public PrivateQMetaUiForm::MUFormLinkCollection
-{
+class Q_QMETAUI_FORM_EXPORT MUFormLinks:public MUFormLinkCollectionBase{
+    Q_OBJECT
 public:
-    explicit MUFormLinks(QObject*dtoParent, QObject*parent=nullptr):PrivateQMetaUiForm::MUFormLinkCollection(dtoParent, parent)
+    explicit MUFormLinks(QObject*parent=nullptr):MUFormLinkCollectionBase(parent)
     {
     }
 
-    virtual T&d()
-    {
-        auto object=&PrivateQMetaUiForm::MUFormLinkCollection::d();
-        return*dynamic_cast<T*>(object);
-    }
-
-    virtual MUFormLinkItem<T>&ref(const QVariant&ref)
+    virtual MUFormLinkItem&ref(const QVariant&ref)
     {
 
-        auto object=PrivateQMetaUiForm::MUFormLinkCollection::find(ref);
+        auto object=MUFormLinkCollectionBase::find(ref);
         if(object==nullptr){
-            object=new MUFormLinkItem<T>(&this->d(), this);
+            object=new MUFormLinkItem(this);
             object->setRef(ref);
-            PrivateQMetaUiForm::MUFormLinkCollection::ref(object);
+            MUFormLinkCollectionBase::ref(object);
         }
-        return*dynamic_cast<MUFormLinkItem<T>*>(object) ;
+        return*dynamic_cast<MUFormLinkItem*>(object) ;
     }
 };

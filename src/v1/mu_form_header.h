@@ -4,12 +4,11 @@
 #include "./mu_form_global.h"
 #include "./mu_form_types.h"
 
-template <class T>
 //!
 //! \brief The MUFormHeader class
 //!
-class MUFormHeader : public QStm::Object{
-
+class Q_QMETAUI_FORM_EXPORT MUFormHeader : public QStm::Object{
+    Q_OBJECT
 public:
     enum FilterStyle{
         dsAutoDectect=MUFormFilterStyle::fsAutoDectect
@@ -27,7 +26,7 @@ public:
     Q_PROPERTY(QVariant     defaultValue        READ defaultValue       WRITE setDefaultValue       )
     Q_PROPERTY(QVariant     text                READ text               WRITE setText               )
     Q_PROPERTY(QVariant     length              READ length             WRITE setLength             )
-    Q_PROPERTY(Alignment    align               READ align              WRITE setAlign              )
+    Q_PROPERTY(QVariant     align               READ align              WRITE setAlign              )
     Q_PROPERTY(QVariant     width               READ width              WRITE setWidth              )
     Q_PROPERTY(bool         visible             READ visible            WRITE setVisible            )
     Q_PROPERTY(bool         editable            READ editable           WRITE setEditable           )
@@ -36,22 +35,13 @@ public:
     Q_PROPERTY(QVariant     filterStyle         READ filterStyle        WRITE setFilterStyle        )
     Q_PROPERTY(QVariant     filtrableStrategy   READ filtrableStrategy  WRITE setFiltrableStrategy  )
     Q_PROPERTY(QVariant     readOnly            READ readOnly           WRITE setReadOnly           )
-    Q_PROPERTY(QVariant     defaultValue        READ defaultValue       WRITE setDefaultValue       )
     Q_PROPERTY(QVariant     defaultSelect       READ defaultSelect      WRITE setDefaultSelect      )
     Q_PROPERTY(QVariant     inputType           READ inputType          WRITE setInputType          )
     Q_PROPERTY(QVariant     inputMask           READ inputMask          WRITE setInputMask          )
     Q_PROPERTY(QVariant     inputLinks          READ inputLinks         WRITE setInputLinks         )
 
-    Q_INVOKABLE explicit MUFormHeader(T*dto, QObject*parent=nullptr):QStm::Object(parent){
-        this->___d=dto;
-    }
-
-    Q_INVOKABLE virtual ~MUFormHeader(){
-
-    }
-
-    T&d(){
-        return*this->___d;
+    explicit MUFormHeader(QObject*parent=nullptr):QStm::Object(parent)
+    {
     }
 
     virtual QVariant order() const
@@ -68,6 +58,11 @@ public:
     {
         this->v.insert(vpOrder,order.toInt());
         return*this;
+    }
+
+    virtual QVariant type()
+    {
+        return QVariant(this->v.value(vpType));
     }
 
     virtual MUFormHeader&type(const QVariant &type)
@@ -119,6 +114,12 @@ public:
     }
 
     virtual MUFormHeader&defaultSelect(const QVariant &value)
+    {
+        this->v.insert(vpDefaultSelect, value);
+        return*this;
+    }
+
+    virtual MUFormHeader&setDefaultSelect(const QVariant &value)
     {
         this->v.insert(vpDefaultSelect, value);
         return*this;
@@ -183,12 +184,24 @@ public:
         return*this;
     }
 
+    virtual MUFormHeader&setInputType(const QVariant &value)
+    {
+        this->v.insert(vpInputType, value);
+        return*this;
+    }
+
     virtual QVariant inputMask() const
     {
         return this->v.value(vpInputType);
     }
 
     virtual MUFormHeader&inputMask(const QVariant &value)
+    {
+        this->v.insert(vpInputMask, value);
+        return*this;
+    }
+
+    virtual MUFormHeader&setInputMask(const QVariant &value)
     {
         this->v.insert(vpInputMask, value);
         return*this;
@@ -205,12 +218,24 @@ public:
         return*this;
     }
 
+    virtual MUFormHeader&setInputLinks(const QVariant &value)
+    {
+        this->v.insert(vtInputLinks, value);
+        return*this;
+    }
+
     virtual QVariant length() const
     {
         return this->v.value(vpLength);
     }
 
     virtual MUFormHeader&length(const QVariant &value)
+    {
+        this->v.insert(vpLength, value.toInt());
+        return*this;
+    }
+
+    virtual MUFormHeader&setLength(const QVariant &value)
     {
         this->v.insert(vpLength, value.toInt());
         return*this;
@@ -239,6 +264,13 @@ public:
     }
 
     virtual MUFormHeader&readOnly(const QVariant&value)
+    {
+        auto v=(value.isNull() || !value.isValid())?true:value.toBool();
+        this->v.insert(vpReadOnly, v);
+        return*this;
+    }
+
+    virtual MUFormHeader&setReadOnly(const QVariant&value)
     {
         auto v=(value.isNull() || !value.isValid())?true:value.toBool();
         this->v.insert(vpReadOnly, v);
@@ -325,19 +357,21 @@ public:
         return*this;
     }
 
-    virtual QVariant toVar()const{
+    virtual QVariant toVar()const
+    {
         return this->v;
     };
 
-    virtual const QVariantHash&toHash(){
+    QVariantHash toHash()const
+    {
         return this->v;
     };
 
-    virtual QVariantMap toMap()const {
+    virtual QVariantMap toMap()const
+    {
         return QVariant(this->v).toMap();
     };
 
 private:
     QVariantHash v;
-    T*___d=nullptr;
 };

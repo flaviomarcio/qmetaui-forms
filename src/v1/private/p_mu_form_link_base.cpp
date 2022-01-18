@@ -1,11 +1,10 @@
-#include "./mu_form_link_base.h"
-
-namespace PrivateQMetaUiForm {
+#include "./p_mu_form_link_base.h"
+#include "../mu_form_body.h"
 
 #define dPvtI()\
 auto&p = *reinterpret_cast<MUFormLinkItemPvt*>(this->p)\
 
-class MUFormLinkItemPvt : public QObject{
+class Q_QMETAUI_FORM_EXPORT MUFormLinkItemPvt : public QObject{
 public:
     QUuid uuid=QUuid::createUuid();
     QVariantHash header;
@@ -14,7 +13,6 @@ public:
     QVariant hRef;
     QVariant parameters;
     QObject*parent=nullptr;
-    QObject*___d=nullptr;
     explicit MUFormLinkItemPvt(QObject*parent):QObject(parent)
     {
     }
@@ -26,124 +24,113 @@ public:
 #define dPvtA()\
 auto&p = *reinterpret_cast<MUFormLinkBaseCollectionPvt*>(this->p)\
 
-class MUFormLinkBaseCollectionPvt : public QObject{
+class Q_QMETAUI_FORM_EXPORT MUFormLinkBaseCollectionPvt : public QObject{
 public:
     QObject*parent=nullptr;
-    QObject*___d=nullptr;
-    QHash<QString, MUFormLinkItem*> ___objectList;
+    QHash<QString, MUFormLinkItemBase*> ___objectList;
     explicit MUFormLinkBaseCollectionPvt(QObject*parent):QObject(parent)
     {
     }
-    ~MUFormLinkBaseCollectionPvt(){
-    }
 };
 
-MUFormLinkItem::MUFormLinkItem(QObject *dtpParent, QObject *parent):QStm::Object(parent)
+MUFormLinkItemBase::MUFormLinkItemBase(QObject *parent):QStm::Object(parent)
 {
     this->p=new MUFormLinkItemPvt(this);
-    dPvtI();
-    p.___d=dtpParent;
 }
 
-MUFormLinkItem::~MUFormLinkItem()
+MUFormLinkItemBase::~MUFormLinkItemBase()
 {
 }
 
-QUuid &MUFormLinkItem::uuid() const
+QUuid &MUFormLinkItemBase::uuid() const
 {
     dPvtI();
     return p.uuid;
 }
 
-QObject &MUFormLinkItem::d()
-{
-    dPvtI();
-    return*p.___d;
-}
-
-bool MUFormLinkItem::isMethodGet() const
+bool MUFormLinkItemBase::isMethodGet() const
 {
     dPvtI();
     return (p.method==qbl("get"));
 }
 
-bool MUFormLinkItem::isMethodPost() const
+bool MUFormLinkItemBase::isMethodPost() const
 {
     dPvtI();
     return (p.method==qbl("post"));
 }
 
-bool MUFormLinkItem::isMethodPut() const
+bool MUFormLinkItemBase::isMethodPut() const
 {
     dPvtI();
     return (p.method==qbl("put"));
 }
 
-bool MUFormLinkItem::isMethodDelete() const
+bool MUFormLinkItemBase::isMethodDelete() const
 {
     dPvtI();
     return (p.method==qbl("delete"));
 }
 
-QVariantHash &MUFormLinkItem::header() const
+QVariantHash &MUFormLinkItemBase::header() const
 {
     dPvtI();
     return p.header;
 }
 
-MUFormLinkItem &MUFormLinkItem::setHeader(const QVariant &value)
+MUFormLinkItemBase &MUFormLinkItemBase::setHeader(const QVariant &value)
 {
     dPvtI();
     p.header=value.toHash();
     return*this;
 }
 
-QVariant &MUFormLinkItem::method() const
+QVariant &MUFormLinkItemBase::method() const
 {
     dPvtI();
     return p.method;
 }
 
-MUFormLinkItem &MUFormLinkItem::setMethod(const QVariant &value)
+MUFormLinkItemBase &MUFormLinkItemBase::setMethod(const QVariant &value)
 {
     dPvtI();
     p.method=value.toString().trimmed();
     return*this;
 }
 
-QVariant &MUFormLinkItem::ref() const
+QVariant &MUFormLinkItemBase::ref() const
 {
     dPvtI();
     return p.ref;
 }
 
-MUFormLinkItem &MUFormLinkItem::setRef(const QVariant &value)
+MUFormLinkItemBase &MUFormLinkItemBase::setRef(const QVariant &value)
 {
     dPvtI();
     p.ref=value;
     return*this;
 }
 
-QVariant &MUFormLinkItem::hRef() const
+QVariant &MUFormLinkItemBase::hRef() const
 {
     dPvtI();
     return p.hRef;
 }
 
-MUFormLinkItem &MUFormLinkItem::setHRef(const QVariant &value)
+MUFormLinkItemBase &MUFormLinkItemBase::setHRef(const QVariant &value)
 {
     dPvtI();
     p.hRef=value;
     return*this;
 }
 
-QVariant &MUFormLinkItem::parameters() const
+QVariant &MUFormLinkItemBase::parameters() const
 {
     dPvtI();
     return p.parameters;
 }
 
-MUFormLinkItem &MUFormLinkItem::setParameters(const QVariant &value)
+MUFormLinkItemBase &MUFormLinkItemBase::setParameters(const QVariant &value)
 {
     dPvtI();
     auto typeId=qTypeId(value);
@@ -156,23 +143,22 @@ MUFormLinkItem &MUFormLinkItem::setParameters(const QVariant &value)
     return*this;
 }
 
-QVariant MUFormLinkItem::toVariant() const
+QVariant MUFormLinkItemBase::toVariant() const
 {
     auto v=this->toHash();
     return v;
 }
 
-MUFormLinkCollection::MUFormLinkCollection(QObject *dtoParent, QObject *parent):QStm::Object(parent)
+MUFormLinkCollectionBase::MUFormLinkCollectionBase(QObject *parent):QStm::Object(parent)
 {
     this->p = new MUFormLinkBaseCollectionPvt(this);
-    dPvtA();
-    p.___d=dtoParent;
 }
 
-MUFormLinkCollection::~MUFormLinkCollection(){
+MUFormLinkCollectionBase::~MUFormLinkCollectionBase()
+{
 }
 
-QVariant MUFormLinkCollection::toVar() const
+QVariant MUFormLinkCollectionBase::toVar() const
 {
     dPvtA();
     QVariantList vList;
@@ -181,28 +167,22 @@ QVariant MUFormLinkCollection::toVar() const
     return vList;
 }
 
-QObject &MUFormLinkCollection::d()
-{
-    dPvtA();
-    return*p.___d;
-}
-
-QObject &MUFormLinkCollection::ref(MUFormLinkItem *link)
+QObject &MUFormLinkCollectionBase::ref(MUFormLinkItemBase *link)
 {
     dPvtA();
     if(link==nullptr)
-        link=new MUFormLinkItem(p.___d, this);
+        link=new MUFormLinkItemBase(this);
     else
         link->setParent(this);
     p.___objectList.insert(link->uuid().toString(), link);
     return*link;
 }
 
-MUFormLinkItem *MUFormLinkCollection::find(const QVariant &ref)
+MUFormLinkItemBase *MUFormLinkCollectionBase::find(const QVariant &ref)
 {
     dPvtA();
     auto _ref=ref.toString().toUtf8().toLower().trimmed();
-    QHashIterator<QString, MUFormLinkItem*> i(p.___objectList);
+    QHashIterator<QString, MUFormLinkItemBase*> i(p.___objectList);
     while (i.hasNext()) {
         i.next();
         auto iRef=i.value();
@@ -213,16 +193,14 @@ MUFormLinkItem *MUFormLinkCollection::find(const QVariant &ref)
     return nullptr;
 }
 
-MUFormLinkCollection &MUFormLinkCollection::clear(){
+MUFormLinkCollectionBase &MUFormLinkCollectionBase::clear(){
     dPvtA();
     p.___objectList.clear();
     return*this;
 }
 
-QHash<QString, MUFormLinkItem *> &MUFormLinkCollection::list() const
+QHash<QString, MUFormLinkItemBase *> &MUFormLinkCollectionBase::list() const
 {
     dPvtA();
     return p.___objectList;
-}
-
 }

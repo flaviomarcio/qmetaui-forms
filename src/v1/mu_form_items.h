@@ -4,30 +4,14 @@
 #include "./mu_form_global.h"
 #include "./mu_form_types.h"
 
-template <class T>
 //!
 //! \brief The MUFormItems class
 //!
-class MUFormItems:public QStm::Object
-{
+class Q_QMETAUI_FORM_EXPORT MUFormItems:public QStm::Object{
+    Q_OBJECT
 public:
     explicit MUFormItems(QObject*parent=nullptr):QStm::Object(parent)
     {
-    }
-
-    explicit MUFormItems(QObject*dtoParent, QObject*parent=nullptr):QStm::Object(parent)
-    {
-        this->___d=dtoParent;
-    }
-
-    virtual ~MUFormItems()
-    {
-    }
-
-    template<class TD=T>
-    TD&d()
-    {
-        return*dynamic_cast<T*>(this->___d);
     }
 
     virtual MUFormItems&clear()
@@ -53,6 +37,5 @@ public:
     }
 
 private:
-    QObject*___d=nullptr;
     QVariantList ___objectList;
 };

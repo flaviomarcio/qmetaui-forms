@@ -1,102 +1,93 @@
 #pragma once
 
+#include "./private/p_mu_form_link_base.h"
 
-#include "./private/mu_form_link_base.h"
-
-template <class T>
 //!
 //! \brief The MUFormLinkItem class
 //!
-class MUFormLinkItem : public PrivateQMetaUiForm::MUFormLinkItem{
+class Q_QMETAUI_FORM_EXPORT MUFormLinkItem : public MUFormLinkItemBase{
+    Q_OBJECT
 public:
-    Q_INVOKABLE explicit MUFormLinkItem(QObject*dtoParent, QObject*parent=nullptr):PrivateQMetaUiForm::MUFormLinkItem(dtoParent, parent)
+    Q_INVOKABLE explicit MUFormLinkItem(QObject*parent=nullptr):MUFormLinkItemBase(parent)
     {
-    }
-    virtual ~MUFormLinkItem()
-    {
-    }
-    virtual T&d()
-    {
-        auto object=&PrivateQMetaUiForm::MUFormLinkItem::d();
-        return*dynamic_cast<T*>(object);
     }
 
     QVariantHash&header()
     {
-        return PrivateQMetaUiForm::MUFormLinkItem::header();
+        return MUFormLinkItemBase::header();
     }
 
     auto&header(const QVariant&value)
     {
-        PrivateQMetaUiForm::MUFormLinkItem::setHeader(value);
+        MUFormLinkItemBase::setHeader(value);
         return*this;
     }
 
     QVariant&method()
     {
-        return PrivateQMetaUiForm::MUFormLinkItem::method();
+        return MUFormLinkItemBase::method();
     }
 
     auto&method(const QVariant&value)
     {
-        PrivateQMetaUiForm::MUFormLinkItem::setMethod(value);
+        MUFormLinkItemBase::setMethod(value);
         return*this;
     }
 
     auto&setMethod(const QVariant&value)
     {
-        PrivateQMetaUiForm::MUFormLinkItem::setMethod(value);
+        MUFormLinkItemBase::setMethod(value);
         return*this;
     }
 
     QVariant&ref()
     {
-        return PrivateQMetaUiForm::MUFormLinkItem::ref();
+        return MUFormLinkItemBase::ref();
     }
 
     auto&ref(const QVariant&value)
     {
-        PrivateQMetaUiForm::MUFormLinkItem::setRef(value);
+        MUFormLinkItemBase::setRef(value);
         return*this;
     }
 
     auto&setRef(const QVariant&value)
     {
-        PrivateQMetaUiForm::MUFormLinkItem::setRef(value);
+        MUFormLinkItemBase::setRef(value);
         return*this;
     }
 
     QVariant&hRef()
     {
-        return PrivateQMetaUiForm::MUFormLinkItem::hRef();
+        return MUFormLinkItemBase::hRef();
     }
 
     auto&hRef(const QVariant&value)
     {
-        PrivateQMetaUiForm::MUFormLinkItem::setHRef(value);
+        MUFormLinkItemBase::setHRef(value);
         return*this;
     }
 
     auto&setHRef(const QVariant&value)
     {
-        PrivateQMetaUiForm::MUFormLinkItem::setHRef(value);
+        MUFormLinkItemBase::setHRef(value);
         return*this;
     }
 
     QVariant&parameters()
     {
-        return PrivateQMetaUiForm::MUFormLinkItem::parameters();
+        return MUFormLinkItemBase::parameters();
     }
 
     auto&parameters(const QVariant&value)
     {
-        PrivateQMetaUiForm::MUFormLinkItem::setParameters(value);
+        MUFormLinkItemBase::setParameters(value);
         return*this;
     }
 
     auto&setParameters(const QVariant&value)
     {
-        PrivateQMetaUiForm::MUFormLinkItem::setParameters(value);
+        MUFormLinkItemBase::setParameters(value);
         return*this;
     }
 };

@@ -1,38 +1,26 @@
 #pragma once
 
-#include "./private/mu_form_link_base.h"
+#include "./private/p_mu_form_link_base.h"
 
-
-template <class T>
 //!
 //! \brief The MUFormCrudItem class
 //!
-class MUFormCrudItem : public QStm::Object{
+class Q_QMETAUI_FORM_EXPORT MUFormCrudItem : public QStm::Object{
+    Q_OBJECT
 public:
-    Q_INVOKABLE explicit MUFormCrudItem(QObject*dtoParent, QObject*parent=nullptr):QStm::Object(parent), item(dtoParent, parent)
+    Q_INVOKABLE explicit MUFormCrudItem(QObject*parent=nullptr):QStm::Object(parent), item(parent)
     {
     }
-    virtual T&d()
-    {
-        auto object=&this->item.d();
-        return*dynamic_cast<T*>(object);
-    }
-    PrivateQMetaUiForm::MUFormLinkItem item;
+    MUFormLinkItemBase item;
 };
 
-template <class T>
 //!
 //! \brief The MUFormCrud class
 //!
-class MUFormCrud:public PrivateQMetaUiForm::MUFormLinkCollection
-{
+class Q_QMETAUI_FORM_EXPORT MUFormCrud:public MUFormLinkCollectionBase{
+    Q_OBJECT
 public:
-    explicit MUFormCrud(QObject*dtoParent, QObject*parent=nullptr):PrivateQMetaUiForm::MUFormLinkCollection(dtoParent, parent)
+    explicit MUFormCrud(QObject*parent=nullptr):MUFormLinkCollectionBase(parent)
     {
-    }
-    virtual T&d()
-    {
-        auto object=&PrivateQMetaUiForm::MUFormLinkCollection::d();
-        return*dynamic_cast<T*>(object);
     }
 };

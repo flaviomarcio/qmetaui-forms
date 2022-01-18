@@ -6,14 +6,10 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-namespace PrivateQMetaUiForm {
 Q_GLOBAL_STATIC(QVariantHash, dtoSettings)
-}
 
 #define dPvt()\
 auto&p = *reinterpret_cast<MUFormBodyPvt*>(this->p)
-
-static auto&dtoSettings=*PrivateQMetaUiForm::dtoSettings;
 
 static void initDtoSettingsCache()
 {
@@ -57,51 +53,37 @@ static void initDtoSettingsCache()
             }
         }
     }
-    dtoSettings=__dtoSettings;
+    *dtoSettings=__dtoSettings;
 }
 
 Q_COREAPP_STARTUP_FUNCTION(initDtoSettingsCache)
 
 
-class MUFormBodyPvt{
+class Q_QMETAUI_FORM_EXPORT MUFormBodyPvt{
 public:
     MUFormControls dtoControls;
 
-    QObject*dto=nullptr;
+    MUFormBody*parent=nullptr;
 
     explicit MUFormBodyPvt(MUFormBody*parent)
     {
-        this->dto=parent;
-        auto pParent=parent->parent();
-        if(pParent!=nullptr)
-            this->initDescriptors(pParent);
+        this->parent=parent;
     }
 
     virtual ~MUFormBodyPvt()
     {
     }
 
-    void initObjects(){
-        const auto className=QString::fromUtf8(this->dto->parent()->metaObject()->className()).toLower().trimmed();
-        auto settings=dtoSettings.value(className).toHash();
+    void initObjects()
+    {
+        const auto className=QString::fromUtf8(this->parent->parent()->metaObject()->className()).toLower().trimmed();
+        auto settings=dtoSettings->value(className).toHash();
         this->dtoControls.settings(settings);
     }
 
-    void clear(){
-        this->dtoControls.clear();
-    }
-
-    void initDescriptors(QObject*)
+    void clear()
     {
-//        auto model=dynamic_cast<Model*>(object);
-//        if(model==nullptr)
-//            return;
-//        const auto&modelInfo=ModelInfo::modelInfo(model->metaObject()->className());
-//        const auto&descriptors=modelInfo.propertyDescriptors();
-//        this->dtoControls.headers().clear().makeDefault();
-//        for(auto&v:descriptors){
-//            this->dtoControls.headers().value(v.toHash());
-//        }
+        this->dtoControls.clear();
     }
 };
 
@@ -203,25 +185,25 @@ MUFormControls &MUFormBody::controls()
     return p.dtoControls;
 }
 
-MUFormHeaders<MUFormControls> &MUFormBody::headers()
+MUFormHeaders &MUFormBody::headers()
 {
     dPvt();
     return p.dtoControls.headers();
 }
 
-MUFormFilters<MUFormControls> &MUFormBody::filters()
+MUFormFilters &MUFormBody::filters()
 {
     dPvt();
     return p.dtoControls.filters();
 }
 
-MUFormLinks<MUFormControls> &MUFormBody::links()
+MUFormLinks &MUFormBody::links()
 {
     dPvt();
     return p.dtoControls.links();
 }
 
-MUFormItems<MUFormControls> &MUFormBody::items()
+MUFormItems &MUFormBody::items()
 {
     dPvt();
     return p.dtoControls.items();
@@ -320,21 +302,3 @@ MUFormBody &MUFormBody::clear()
     return*this;
 }
 
-ResultValue &MUFormBody::o()
-{
-    dPvt();
-    return p.dtoControls.o();
-}
-
-ResultValue &MUFormBody::toOutput()
-{
-    dPvt();
-    return p.dtoControls.o();
-}
-
-MUFormBody &MUFormBody::initDescriptors(QObject *object)
-{
-    dPvt();
-    p.initDescriptors(object);
-    return*this;
-}

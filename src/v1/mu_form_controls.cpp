@@ -18,7 +18,7 @@ static const QVariantHash __makeMUFormWindowType()
     return ___return;
 }
 
-static const QVariantHash __makeDTOFormLayout()
+static const QVariantHash __makeMUFormLayout()
 {
     QVariantHash ___return=
         {
@@ -32,127 +32,127 @@ static const QVariantHash __makeDTOFormLayout()
     return ___return;
 }
 
-static const auto __MUFormWindowTypeMap = __makeMUFormWindowType();
-static const auto __DTOFormLayoutMap = __makeDTOFormLayout();
+static const auto __MUFormWindowTypeHash = __makeMUFormWindowType();
+static const auto __MUFormLayoutHash = __makeMUFormLayout();
 
 #define dPvt()\
 auto&p = *reinterpret_cast<MUFormControlsPvt*>(this->p)
 
-class MUFormControlsPvt{
+class Q_QMETAUI_FORM_EXPORT MUFormControlsPvt{
 public:
     QString id;
     QString text;
-    QVariant type=__MUFormWindowTypeMap.key(dftReportForm);
-    QVariant layout=__DTOFormLayoutMap.key(dflVerticalControls);
+    QVariant type=__MUFormWindowTypeHash.key(dftReportForm);
+    QVariant layout=__MUFormLayoutHash.key(dflVerticalControls);
     QVariantHash sort;
     QString settingName;
     MUFormOutPutStyle outPutStyle=opsRowObject;
-    MUFormHeaders<MUFormControls> headers;
-    MUFormFilters<MUFormControls> filters;
-    MUFormLinks<MUFormControls> links;
-    MUFormCrud<MUFormControls> crud;
-    MUFormItems<MUFormControls> items;
+    MUFormHeaders headers;
+    MUFormFilters filters;
+    MUFormLinks links;
+    MUFormCrud crud;
+    MUFormItems items;
     QStm::ResultInfo resultInfo;
-    QObject*dto=nullptr;
+    MUFormControls*parent=nullptr;
 
     explicit MUFormControlsPvt(MUFormControls*parent)
         :
-        headers(parent, parent),
-        filters(parent, parent),
-        links(parent, parent),
-        crud(parent, parent),
-        items(parent,parent),
+        headers(parent),
+        filters(parent),
+        links(parent),
+        crud(parent),
+        items(parent),
         resultInfo(parent)
     {
-        this->dto=parent;
+        this->parent=parent;
     }
 
     virtual ~MUFormControlsPvt()
     {
     }
 
-    QVariantHash toOutput()
-    {
-        QVariantHash vHash;
-        {//rows
-            QVector<QString> cacheHeader;
+//    QVariantHash toOutput()
+//    {
+//        QVariantHash vHash;
+//        {//rows
+//            QVector<QString> cacheHeader;
 
-            this->headers.makeDefault();
-            const auto&vHeaderList=this->headers.list();
-            const auto vFilter=this->filters.toVar().toList();
-            const auto vLinks=this->links.toVar().toList();
-            auto vItems=this->items.toVar().toList();
+//            this->headers.makeDefault();
+//            const auto&vHeaderList=this->headers.list();
+//            const auto vFilter=this->filters.toVar().toList();
+//            const auto vLinks=this->links.toVar().toList();
+//            auto vItems=this->items.toVar().toList();
 
-            auto&vList=this->items.list();
-            if(vList.isEmpty()){
-                QVariantMap vRecord;
-                for(const auto&header:vHeaderList){
-                    auto headerName=header->value();
-                    vRecord[headerName]=QVariant();
-                }
-                vList<<vRecord;
-            }
+//            auto&vList=this->items.list();
+//            if(vList.isEmpty()){
+//                QVariantMap vRecord;
+//                for(const auto&header:vHeaderList){
+//                    auto headerName=header->value();
+//                    vRecord[headerName]=QVariant();
+//                }
+//                vList<<vRecord;
+//            }
 
-            for(auto&v:vList){
-                const auto vMap=v.toHash();
-                for(const auto&header:vHeaderList){
-                    auto headerName=header->value();
-                    if(vMap.contains(headerName))
-                        cacheHeader<<headerName;
-                }
-                break;
-            }
+//            for(auto&v:vList){
+//                const auto vMap=v.toHash();
+//                for(const auto&header:vHeaderList){
+//                    auto headerName=header->value();
+//                    if(vMap.contains(headerName))
+//                        cacheHeader<<headerName;
+//                }
+//                break;
+//            }
 
-            if(this->outPutStyle==opsRowArray){
-                QVariantList arItems;
-                for(auto&v:this->items.list()){
-                    const auto vMap=v.toHash();
-                    QVariantList aRow;
-                    for(auto&headerName:cacheHeader){
-                        auto value=vMap.value(headerName);
-                        aRow<<value;
-                    }
-                    if(!aRow.isEmpty())
-                        arItems<<aRow;
-                }
-                vHash.insert(vpItems, vItems );
-                vItems=arItems;
-            }
+//            if(this->outPutStyle==opsRowArray){
+//                QVariantList arItems;
+//                for(auto&v:this->items.list()){
+//                    const auto vMap=v.toHash();
+//                    QVariantList aRow;
+//                    for(auto&headerName:cacheHeader){
+//                        auto value=vMap.value(headerName);
+//                        aRow<<value;
+//                    }
+//                    if(!aRow.isEmpty())
+//                        arItems<<aRow;
+//                }
+//                vHash.insert(vpItems, vItems );
+//                vItems=arItems;
+//            }
 
 
 
-            auto vHeader=QVariantList();
-            for(const auto&header:vHeaderList){
-                auto headerName=header->value();
-                auto var=header->toVar();
+//            auto vHeader=QVariantList();
+//            for(const auto&header:vHeaderList){
+//                auto headerName=header->value();
+//                auto var=header->toVar();
 
-                if(headerName==vActions)
-                    vHeader<<var;
-                else if(cacheHeader.contains(headerName))//se o cachec contiver a header entao lancaremos
-                    vHeader<<var;
+//                if(headerName==vActions)
+//                    vHeader<<var;
+//                else if(cacheHeader.contains(headerName))//se o cachec contiver a header entao lancaremos
+//                    vHeader<<var;
 
-            }
+//            }
 
-            vHash[vpId]=this->id;
-            vHash[vpText]=this->text;
-            vHash[vpType]=this->type;
-            vHash[vpLayout]=this->layout;
-            vHash[vpHeaders]=vHeader;
-            vHash[vpFilters]=vFilter;
-            vHash[vpItems]=vItems;
-            vHash[vpLinks]=vLinks;
-            vHash[vpResultInfo]=this->resultInfo.toHash();
+//            vHash[vpId]=this->id;
+//            vHash[vpText]=this->text;
+//            vHash[vpType]=this->type;
+//            vHash[vpLayout]=this->layout;
+//            vHash[vpHeaders]=vHeader;
+//            vHash[vpFilters]=vFilter;
+//            vHash[vpItems]=vItems;
+//            vHash[vpLinks]=vLinks;
+//            vHash[vpResultInfo]=this->resultInfo.toHash();
 
-            {
-                Q_V_HASH_ITERATOR(this->sort){
-                    i.next();
-                    vHash[i.key()]=i.value();
-                }
-            }
+//            {
+//                Q_V_HASH_ITERATOR(this->sort){
+//                    i.next();
+//                    vHash[i.key()]=i.value();
+//                }
+//            }
 
-        }
-        return vHash;
-    }
+//        }
+//        return vHash;
+//    }
 
 
     void setSettings(const QVariant&value)
@@ -227,7 +227,7 @@ MUFormControls &MUFormControls::id(const QVariant&v)
 QVariant MUFormControls::type() const
 {
     dPvt();
-    const auto&map=__MUFormWindowTypeMap;
+    const auto&map=__MUFormWindowTypeHash;
     auto value=p.type;
     switch (qTypeId(value)) {
     case QMetaType_LongLong:
@@ -254,10 +254,13 @@ MUFormControls &MUFormControls::setType(const QVariant &v)
 QVariant MUFormControls::layout() const
 {
     dPvt();
-    const auto&map=__DTOFormLayoutMap;
+    const auto&map=__MUFormLayoutHash;
     auto value=p.layout;
     switch (qTypeId(value)) {
+    case QMetaType_Int:
+    case QMetaType_UInt:
     case QMetaType_LongLong:
+    case QMetaType_ULongLong:
         return map.value(QString::number(value.toLongLong()));
     default:
         return map.value(value.toString().toLower());
@@ -338,31 +341,31 @@ MUFormControls &MUFormControls::settings(const QVariant &setting)
     return*this;
 }
 
-MUFormHeaders<MUFormControls> &MUFormControls::headers()
+MUFormHeaders &MUFormControls::headers()
 {
     dPvt();
     return p.headers;
 }
 
-MUFormFilters<MUFormControls> &MUFormControls::filters()
+MUFormFilters &MUFormControls::filters()
 {
     dPvt();
     return p.filters;
 }
 
-MUFormLinks<MUFormControls> &MUFormControls::links()
+MUFormLinks &MUFormControls::links()
 {
     dPvt();
     return p.links;
 }
 
-MUFormCrud<MUFormControls> &MUFormControls::crud()
+MUFormCrud &MUFormControls::crud()
 {
     dPvt();
     return p.crud;
 }
 
-MUFormItems<MUFormControls> &MUFormControls::items()
+MUFormItems &MUFormControls::items()
 {
     dPvt();
     return p.items;
@@ -401,16 +404,4 @@ MUFormControls &MUFormControls::clear()
     dPvt();
     p.clear();
     return*this;
-}
-
-ResultValue &MUFormControls::o()
-{
-    dPvt();
-    return this->lr(p.toOutput());
-}
-
-ResultValue &MUFormControls::toOutput()
-{
-    dPvt();
-    return this->lr(p.toOutput());
 }

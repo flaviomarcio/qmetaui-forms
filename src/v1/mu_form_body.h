@@ -6,7 +6,7 @@
 //!
 //! \brief The MUFormBody class
 //!
-class MUFormBody : public QStm::Object
+class Q_QMETAUI_FORM_EXPORT MUFormBody : public QStm::Object
 {
     Q_OBJECT
 public:
@@ -149,25 +149,25 @@ public:
     //! \brief headers
     //! \return
     //!
-    virtual MUFormHeaders<MUFormControls>&headers();
+    virtual MUFormHeaders&headers();
 
     //!
     //! \brief filters
     //! \return
     //!
-    virtual MUFormFilters<MUFormControls>&filters();
+    virtual MUFormFilters&filters();
 
     //!
     //! \brief links
     //! \return
     //!
-    virtual MUFormLinks<MUFormControls>&links();
+    virtual MUFormLinks&links();
 
     //!
     //! \brief items
     //! \return
     //!
-    virtual MUFormItems<MUFormControls> &items();
+    virtual MUFormItems &items();
 
     //!
     //! \brief items
@@ -222,25 +222,6 @@ public:
     //! \return
     //!
     virtual MUFormBody&clear();
-
-    //!
-    //! \brief o
-    //! \return
-    //!
-    virtual ResultValue&o();
-
-    //!
-    //! \brief toOutput
-    //! \return
-    //!
-    virtual ResultValue&toOutput();
-
-    //!
-    //! \brief initDescriptors
-    //! \param object
-    //! \return
-    //!
-    virtual MUFormBody&initDescriptors(QObject *object);
 
 private:
     void*p=nullptr;

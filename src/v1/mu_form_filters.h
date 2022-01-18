@@ -2,17 +2,15 @@
 
 #include "./mu_form_filter.h"
 
-template <class T>
 //!
 //! \brief The MUFormFilters class
 //!
-class MUFormFilters:public QStm::Object
-{
+class Q_QMETAUI_FORM_EXPORT MUFormFilters:public QStm::Object{
+    Q_OBJECT
 public:
 
-    explicit MUFormFilters(T*dto, QObject*parent=nullptr):QStm::Object(parent)
+    explicit MUFormFilters(QObject*parent=nullptr):QStm::Object(parent)
     {
-        this->___d=dto;
     }
 
     ~MUFormFilters()
@@ -27,19 +25,14 @@ public:
         return vList;
     };
 
-    virtual T&d()
-    {
-        return*this->___d;
-    }
-
-    virtual MUFormFilter<T>&value(const QString&v)
+    virtual MUFormFilter&value(const QString&v)
     {
         return this->value(QVariantHash{{vpType,v}});
     }
 
-    virtual MUFormFilter<T>&value(const QVariantHash&v)
+    virtual MUFormFilter&value(const QVariantHash&v)
     {
-        auto object=new MUFormFilter<T>(this->___d, this);
+        auto object=new MUFormFilter(this);
         object->setType(v.value(vpType));
         object->setValue(v.value(vpValue));
         object->setDefaultValue(v.value(vpDefaultValue));
@@ -53,18 +46,17 @@ public:
         return*object;
     }
 
-    virtual MUFormFilters<T>&clear()
+    virtual MUFormFilters&clear()
     {
         this->___objectList.clear();
         return*this;
     }
 
-    virtual QList<MUFormFilter<T>*>&list()
+    virtual QList<MUFormFilter*>&list()
     {
         return this->___objectList;
     }
 
 private:
-    T*___d=nullptr;
-    QList<MUFormFilter<T>*> ___objectList;
+    QList<MUFormFilter*> ___objectList;
 };

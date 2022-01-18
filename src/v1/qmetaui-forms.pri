@@ -25,7 +25,7 @@ HEADERS += \
     $$PWD/mu_form_macro.h \
     $$PWD/mu_form_types.h \
     $$PWD/mu_form_controls.h \
-    $$PWD/private/mu_form_link_base.h
+    $$PWD/private/p_mu_form_link_base.h
 
 SOURCES += \
     $$PWD/mu_form_body.cpp \
@@ -37,4 +37,4 @@ SOURCES += \
     $$PWD/mu_form_link.cpp \
     $$PWD/mu_form_links.cpp \
     $$PWD/mu_form_controls.cpp \
-    $$PWD/private/mu_form_link_base.cpp
+    $$PWD/private/p_mu_form_link_base.cpp

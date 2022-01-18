@@ -3,9 +3,9 @@
 #include "../mu_form_global.h"
 #include "../mu_form_types.h"
 
-namespace PrivateQMetaUiForm {
+class MUFormBody;
 
-class MUFormLinkItem : public QStm::Object{
+class MUFormLinkItemBase : public QStm::Object{
     Q_OBJECT
 public:
     Q_PROPERTY(QVariantHash header READ header WRITE setHeader)
@@ -14,13 +14,13 @@ public:
     Q_PROPERTY(QVariant hRef READ hRef WRITE setHRef)
     Q_PROPERTY(QVariant parameters READ parameters WRITE setParameters)
 
-    Q_INVOKABLE explicit MUFormLinkItem(QObject*dtpParent, QObject*parent=nullptr);
+    Q_INVOKABLE explicit MUFormLinkItemBase(QObject*parent=nullptr);
 
-    ~MUFormLinkItem();
+    ~MUFormLinkItemBase();
 
     QUuid&uuid() const;
 
-    QObject&d();
+    MUFormBody&d();
 
     bool isMethodGet() const;
 
@@ -32,23 +32,23 @@ public:
 
     QVariantHash&header() const;
 
-    MUFormLinkItem&setHeader(const QVariant&value);
+    MUFormLinkItemBase&setHeader(const QVariant&value);
 
     QVariant&method() const;
 
-    MUFormLinkItem&setMethod(const QVariant&value);
+    MUFormLinkItemBase&setMethod(const QVariant&value);
 
     QVariant&ref() const;
 
-    MUFormLinkItem&setRef(const QVariant&value);
+    MUFormLinkItemBase&setRef(const QVariant&value);
 
     QVariant&hRef() const;
 
-    MUFormLinkItem&setHRef(const QVariant&value);
+    MUFormLinkItemBase&setHRef(const QVariant&value);
 
     QVariant&parameters() const;
 
-    MUFormLinkItem&setParameters(const QVariant&value);
+    MUFormLinkItemBase&setParameters(const QVariant&value);
 
     QVariant toVariant() const;
 
@@ -56,28 +56,24 @@ private:
     void*p=nullptr;
 };
 
-class MUFormLinkCollection:public QStm::Object
+class MUFormLinkCollectionBase:public QStm::Object
 {
     Q_OBJECT
 public:
 
-    explicit MUFormLinkCollection(QObject*dtoParent, QObject*parent=nullptr);
+    explicit MUFormLinkCollectionBase(QObject*parent=nullptr);
 
-    ~MUFormLinkCollection();
+    ~MUFormLinkCollectionBase();
 
     QVariant toVar() const;
 
-    QObject&d();
+    QObject&ref(MUFormLinkItemBase*link=nullptr);
 
-    QObject&ref(MUFormLinkItem*link=nullptr);
+    MUFormLinkItemBase*find(const QVariant&ref);
 
-    MUFormLinkItem*find(const QVariant&ref);
+    MUFormLinkCollectionBase&clear();
 
-    MUFormLinkCollection&clear();
-
-    QHash<QString, MUFormLinkItem *> &list()const;
+    QHash<QString, MUFormLinkItemBase *> &list()const;
 private:
     void*p=nullptr;
 };
-
-}

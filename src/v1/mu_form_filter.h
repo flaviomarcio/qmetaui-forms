@@ -4,11 +4,11 @@
 #include "./mu_form_global.h"
 #include "./mu_form_types.h"
 
-template <class T>
 //!
 //! \brief The MUFormFilter class
 //!
-class MUFormFilter : public QStm::Object{
+class Q_QMETAUI_FORM_EXPORT MUFormFilter : public QStm::Object{
+    Q_OBJECT
 public:
 
     Q_PROPERTY(QVariant     type            READ type           WRITE setType            )
@@ -16,25 +16,19 @@ public:
     Q_PROPERTY(QVariant     defaultValue    READ defaultValue   WRITE setDefaultValue    )
     Q_PROPERTY(QVariant     comboValue      READ comboValue     WRITE setComboValue      )
     Q_PROPERTY(QVariant     text            READ text           WRITE setText            )
-    Q_PROPERTY(Alignment    align           READ align          WRITE setAlign           )
+    Q_PROPERTY(QVariant     align           READ align          WRITE setAlign           )
     Q_PROPERTY(QVariant     width           READ width          WRITE setWidth           )
     Q_PROPERTY(bool         sortable        READ sortable       WRITE setSortable        )
     Q_PROPERTY(bool         filtrable       READ filtrable      WRITE setFiltrable       )
     Q_PROPERTY(QVariant     filterStyle     READ filterStyle    WRITE setFilterStyle     )
 
-    Q_INVOKABLE explicit MUFormFilter(T*dto, QObject*parent=nullptr):QStm::Object(parent)
+    Q_INVOKABLE explicit MUFormFilter(QObject*parent=nullptr):QStm::Object(parent)
     {
-        this->___d=dto;
     }
 
     ~MUFormFilter()
     {
 
-    }
-
-    virtual T&d()
-    {
-        return*this->___d;
     }
 
     virtual QVariant type() const
@@ -197,11 +191,11 @@ public:
         return*this;
     }
 
-    virtual QVariant toVariant()const{
+    virtual QVariant toVariant()const
+    {
         return this->v;
     };
 
 private:
     QVariantHash v;
-    T*___d=nullptr;
 };

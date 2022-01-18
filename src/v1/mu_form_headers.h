@@ -2,12 +2,11 @@
 
 #include "./mu_form_header.h"
 
-template <class T>
 //!
 //! \brief The MUFormHeaders class
 //!
-class  MUFormHeaders:public QStm::Object
-{
+class Q_QMETAUI_FORM_EXPORT MUFormHeaders:public QStm::Object{
+    Q_OBJECT
 public:
 
     enum FilterStyle{
@@ -17,22 +16,11 @@ public:
     Q_ENUM(FilterStyle)
 
 
-    explicit MUFormHeaders(T*dto, QObject*parent=nullptr):QStm::Object(parent)
-    {
-        this->___d=dto;
-    }
-
-    explicit MUFormHeaders(T*dto, const QVariantHash&v, QObject*parent=nullptr):QStm::Object(parent)
-    {
-        Q_UNUSED(v)
-        this->___d=dto;
-    }
-
-    virtual ~MUFormHeaders()
+    explicit MUFormHeaders(QObject*parent=nullptr):QStm::Object(parent)
     {
     }
 
-    virtual MUFormHeaders<T>&clear()
+    virtual MUFormHeaders&clear()
     {
         this->___objectMap.clear();
         this->___objectList.clear();
@@ -55,12 +43,7 @@ public:
         return vList;
     };
 
-    virtual T&d()
-    {
-        return*this->___d;
-    }
-
-    virtual MUFormHeader<T>* get(const QString&v)
+    virtual MUFormHeader* get(const QString&v)
     {
         return this->___objectMap.value(v);
     }
@@ -75,17 +58,17 @@ public:
         return*this;
     }
 
-    virtual MUFormHeader<T>&value(const QString&v)
+    virtual MUFormHeader&value(const QString&v)
     {
         return this->value(QVariantHash{{vpValue,v}});
     }
 
-    virtual MUFormHeader<T>&value(const QVariantHash&v)
+    virtual MUFormHeader&value(const QVariantHash&v)
     {
         auto value=v.value(vpValue).toString();
         auto object=this->___objectMap.value(value);
         if(object==nullptr){
-            object=new MUFormHeader<T>(this->___d, this);
+            object=new MUFormHeader(this);
             object->order(this->___objectMap.count());
             this->___objectList<<object;
             this->___objectMap.insert(value, object);
@@ -111,7 +94,7 @@ public:
         return*object;
     }
 
-    virtual MUFormHeader<T>&makeDefault()
+    virtual MUFormHeader&makeDefault()
     {
         static auto vAction=QVariantHash( { { vpValue, vpActions}, { vpText, qsl_null}, { vpSortable, false }, { vpVisible, true }, { vpWidth, qsl("0%") }});
         return this->value(vAction);
@@ -122,7 +105,7 @@ public:
         return this->remove(vpActions);
     }
 
-    virtual QList<MUFormHeader<T>*>&list()
+    virtual QList<MUFormHeader*>&list()
     {
         this->reOrder();
         return this->___objectList;
@@ -136,7 +119,6 @@ public:
     }
 
 protected:
-    QMap<QString, MUFormHeader<T>*> ___objectMap;
-    QList<MUFormHeader<T>*> ___objectList;
-    T*___d=nullptr;
+    QMap<QString, MUFormHeader*> ___objectMap;
+    QList<MUFormHeader*> ___objectList;
 };
