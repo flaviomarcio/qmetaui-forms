@@ -12,7 +12,7 @@
 //!
 //! \brief The MUFormControls class
 //!
-class Q_QMETAUI_FORMS_EXPORT MUFormControls : public QStm::Object
+class Q_QMETAUI_FORM_EXPORT MUFormControls : public QStm::Object
 {
     Q_OBJECT
 public:
