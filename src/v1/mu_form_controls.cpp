@@ -157,17 +157,17 @@ public:
 
     void setSettings(const QVariant&value)
     {
-        auto dtoMap=value.toHash();
+        auto vHash=value.toHash();
         QVariantHash v;
-        if(!dtoMap.isEmpty()){
+        if(!vHash.isEmpty()){
             auto id=this->id.toLower().trimmed();
-            if(!id.isEmpty() || dtoMap.contains(id)){
-                v=dtoMap.value(id).toHash();
+            if(!id.isEmpty() || vHash.contains(id)){
+                v=vHash.value(id).toHash();
             }
-            else if(dtoMap.contains(qsl_null) || dtoMap.contains(vpDefault)){
-                v=dtoMap.value(vpDefault).toHash();
+            else if(vHash.contains(qsl_null) || vHash.contains(vpDefault)){
+                v=vHash.value(vpDefault).toHash();
                 if(v.isEmpty())
-                    v=dtoMap.value(qsl_null).toHash();
+                    v=vHash.value(qsl_null).toHash();
             }
         }
 
@@ -237,13 +237,6 @@ QVariant MUFormControls::type() const
     }
 }
 
-MUFormControls &MUFormControls::type(const QVariant &v)
-{
-    dPvt();
-    p.type=v.toString();
-    return*this;
-}
-
 MUFormControls &MUFormControls::setType(const QVariant &v)
 {
     dPvt();
@@ -267,13 +260,6 @@ QVariant MUFormControls::layout() const
     }
 }
 
-MUFormControls &MUFormControls::layout(const QVariant &v)
-{
-    dPvt();
-    p.layout=v.toString();
-    return*this;
-}
-
 MUFormControls &MUFormControls::setLayout(const QVariant &v)
 {
     dPvt();
@@ -285,13 +271,6 @@ QVariantHash MUFormControls::sort() const
 {
     dPvt();
     return p.sort;
-}
-
-MUFormControls &MUFormControls::sort(const QVariant &v)
-{
-    dPvt();
-    p.sort=v.toHash();
-    return*this;
 }
 
 MUFormControls &MUFormControls::setSort(const QVariant &v)
@@ -307,7 +286,7 @@ QString MUFormControls::text() const
     return p.text;
 }
 
-MUFormControls &MUFormControls::text(const QVariant &v)
+MUFormControls &MUFormControls::setText(const QVariant &v)
 {
     dPvt();
     p.text=v.toString();
@@ -320,24 +299,10 @@ MUFormOutPutStyle&MUFormControls::outPutStyle() const
     return p.outPutStyle;
 }
 
-MUFormControls &MUFormControls::outPutStyle(const MUFormOutPutStyle &value)
-{
-    dPvt();
-    p.outPutStyle = value;
-    return*this;
-}
-
 MUFormControls &MUFormControls::setOutPutStyle(const MUFormOutPutStyle &value)
 {
     dPvt();
     p.outPutStyle = value;
-    return*this;
-}
-
-MUFormControls &MUFormControls::settings(const QVariant &setting)
-{
-    dPvt();
-    p.setSettings(setting);
     return*this;
 }
 
@@ -371,14 +336,14 @@ MUFormItems &MUFormControls::items()
     return p.items;
 }
 
-MUFormControls &MUFormControls::items(const QVariant &v)
+MUFormControls &MUFormControls::setItems(const QVariant &v)
 {
     dPvt();
     p.items.fromList(v);
     return*this;
 }
 
-MUFormControls &MUFormControls::items(const ResultValue &lr)
+MUFormControls &MUFormControls::setItems(const ResultValue &lr)
 {
     dPvt();
     p.items.fromList(this->lr(lr).resultVariant());
@@ -396,6 +361,13 @@ MUFormControls &MUFormControls::setValue(const ResultValue &lr)
 {
     dPvt();
     p.items.fromList(this->lr(lr).resultVariant());
+    return*this;
+}
+
+MUFormControls &MUFormControls::setSettings(const QVariant &setting)
+{
+    dPvt();
+    p.setSettings(setting);
     return*this;
 }
 

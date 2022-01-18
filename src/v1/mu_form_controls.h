@@ -43,7 +43,6 @@ public:
     //! \return
     //!
     virtual QVariant type() const;
-    virtual MUFormControls&type(const QVariant &v);
     virtual MUFormControls&setType(const QVariant &v);
 
     //!
@@ -51,7 +50,6 @@ public:
     //! \return
     //!
     virtual QVariant layout() const;
-    virtual MUFormControls&layout(const QVariant &v);
     virtual MUFormControls&setLayout(const QVariant &v);
 
     //!
@@ -59,7 +57,6 @@ public:
     //! \return
     //!
     virtual QVariantHash sort() const;
-    virtual MUFormControls&sort(const QVariant &v);
     virtual MUFormControls&setSort(const QVariant &v);
 
     //!
@@ -67,33 +64,13 @@ public:
     //! \return
     //!
     virtual QString text()const;
-    virtual MUFormControls&text(const QVariant &v);
-
-    //!
-    //! \brief settings
-    //! \param setting
-    //! \return
-    //!
-    virtual MUFormControls&settings(const QVariant&setting);
+    virtual MUFormControls&setText(const QVariant &v);
 
     //!
     //! \brief outPutStyle
     //! \return
     //!
     virtual MUFormOutPutStyle &outPutStyle() const;
-
-    //!
-    //! \brief outPutStyle
-    //! \param value
-    //! \return
-    //!
-    virtual MUFormControls &outPutStyle(const MUFormOutPutStyle &value);
-
-    //!
-    //! \brief setOutPutStyle
-    //! \param value
-    //! \return
-    //!
     virtual MUFormControls &setOutPutStyle(const MUFormOutPutStyle &value);
 
     //!
@@ -125,8 +102,8 @@ public:
     //! \return
     //!
     virtual MUFormItems &items();
-    virtual MUFormControls &items(const QVariant&v);
-    virtual MUFormControls &items(const ResultValue&lr);
+    virtual MUFormControls &setItems(const QVariant&v);
+    virtual MUFormControls &setItems(const ResultValue&lr);
 
     //!
     //! \brief setValue
@@ -135,6 +112,14 @@ public:
     //!
     virtual MUFormControls &setValue(const QVariant&v);
     virtual MUFormControls &setValue(const ResultValue&lr);
+
+    //!
+    //! \brief setSettings
+    //! \param setting
+    //! \return
+    //!
+    virtual MUFormControls&setSettings(const QVariant&setting);
+
 
     //!
     //! \brief clear

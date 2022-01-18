@@ -22,179 +22,87 @@ public:
     Q_PROPERTY(bool         filtrable       READ filtrable      WRITE setFiltrable       )
     Q_PROPERTY(QVariant     filterStyle     READ filterStyle    WRITE setFilterStyle     )
 
-    Q_INVOKABLE explicit MUFormFilter(QObject*parent=nullptr):QStm::Object(parent)
-    {
-    }
+    //!
+    //! \brief MUFormFilter
+    //! \param parent
+    //!
+    Q_INVOKABLE explicit MUFormFilter(QObject*parent=nullptr);
 
-    ~MUFormFilter()
-    {
+    //!
+    //! \brief type
+    //! \return
+    //!
+    virtual QVariant type() const;
+    virtual MUFormFilter&setType(const QVariant &type);
 
-    }
+    //!
+    //! \brief value
+    //! \return
+    //!
+    virtual QByteArray value() const;
+    virtual MUFormFilter&setValue(const QVariant &value);
 
-    virtual QVariant type() const
-    {
-        return this->v.value(qsl("type"));
-    }
+    //!
+    //! \brief defaultValue
+    //! \return
+    //!
+    virtual QString defaultValue() const;
+    virtual MUFormFilter&setDefaultValue(const QVariant &value);
 
-    virtual MUFormFilter&type(const QVariant &type)
-    {
-        return this->setType(type);
-    }
+    //!
+    //! \brief comboValue
+    //! \return
+    //!
+    virtual QString comboValue() const;
+    virtual MUFormFilter&setComboValue(const QVariant &value);
 
-    virtual MUFormFilter&setType(const QVariant &type)
-    {
-        this->v.insert(qsl("type"),type);
-        return*this;
-    }
+    //!
+    //! \brief text
+    //! \return
+    //!
+    virtual QString text() const;
+    virtual MUFormFilter&setText(const QVariant &value);
 
-    virtual QByteArray value() const
-    {
-        return this->v.value(qsl("value")).toByteArray();
-    }
+    //!
+    //! \brief align
+    //! \return
+    //!
+    virtual QVariant align() const;
+    virtual MUFormFilter&setAlign(const QVariant& value);
 
-    virtual MUFormFilter&value(const QVariant &value)
-    {
-        return this->setValue(value);
-    }
+    //!
+    //! \brief width
+    //! \return
+    //!
+    virtual QVariant width() const;
+    virtual MUFormFilter&setWidth(const QVariant& value);
 
-    virtual MUFormFilter&setValue(const QVariant &value)
-    {
-        this->v.insert(qsl("value"), value);
-        return*this;
-    }
+    //!
+    //! \brief sortable
+    //! \return
+    //!
+    virtual bool sortable() const;
+    virtual MUFormFilter&setSortable(const QVariant &value);
 
-    virtual QString defaultValue() const
-    {
-        return this->v.value(qsl("defaultValue")).toByteArray();
-    }
+    //!
+    //! \brief filtrable
+    //! \return
+    //!
+    virtual bool filtrable() const;
+    virtual MUFormFilter&setFiltrable(const QVariant &value);
 
-    virtual MUFormFilter&defaultValue(const QVariant &value)
-    {
-        return this->setDefaultValue(value);
-    }
+    //!
+    //! \brief filterStyle
+    //! \return
+    //!
+    virtual MUFormFilterStyle filterStyle() const;
+    virtual MUFormFilter&setFilterStyle(const QVariant &value);
 
-    virtual MUFormFilter&setDefaultValue(const QVariant &value)
-    {
-        this->v.insert(qsl("defaultValue"), value.toByteArray());
-        return*this;
-    }
-
-    virtual QString comboValue() const
-    {
-        return this->v.value(qsl("comboValue")).toByteArray();
-    }
-
-    virtual MUFormFilter&comboValue(const QVariant &value)
-    {
-        return this->setComboValue(value);
-    }
-
-    virtual MUFormFilter&setComboValue(const QVariant &value)
-    {
-        this->v.insert(qsl("comboValue"), value.toByteArray());
-        return*this;
-    }
-
-    virtual QString text() const
-    {
-        return this->v.value(qsl("text")).toByteArray();
-    }
-
-    virtual MUFormFilter&text(const QVariant &value)
-    {
-        return this->setText(value);
-    }
-
-    virtual MUFormFilter&setText(const QVariant &value)
-    {
-        this->v.insert(qsl("text"), value.toByteArray());
-        return*this;
-    }
-
-    virtual QVariant align() const
-    {
-        return this->v.value(qsl("align"));
-    }
-
-    virtual MUFormFilter&align(const QVariant& value)
-    {
-        return this->setAlign(value);
-    }
-
-    virtual MUFormFilter&setAlign(const QVariant& value)
-    {
-        this->v.insert(qsl("align"), value);
-        return*this;
-    }
-
-    virtual QVariant width() const
-    {
-        return this->v.value(qsl("width")).toBool();
-    }
-
-    virtual MUFormFilter&width(const QVariant& value)
-    {
-        return this->setWidth(value);
-    }
-
-    virtual MUFormFilter&setWidth(const QVariant& value)
-    {
-        this->v.insert(qsl("width"), value);
-        return*this;
-    }
-
-    virtual bool sortable() const
-    {
-        return this->v.value(qsl("sortable")).toBool();
-    }
-
-    virtual MUFormFilter&sortable(const QVariant &value)
-    {
-        return this->setSortable(value);
-    }
-
-    virtual MUFormFilter&setSortable(const QVariant &value)
-    {
-        this->v.insert(qsl("sortable"), value);
-        return*this;
-    }
-
-    virtual bool filtrable() const
-    {
-        return this->v.value(qsl("filtrable")).toBool();
-    }
-
-    virtual MUFormFilter&filtrable(const QVariant &value)
-    {
-        return this->setFiltrable(value);
-    }
-
-    virtual MUFormFilter&setFiltrable(const QVariant &value)
-    {
-        this->v.insert(qsl("filtrable"), value);
-        return*this;
-    }
-
-    virtual MUFormFilterStyle filterStyle() const
-    {
-        return MUFormFilterStyle(this->v.value(qsl("filterStyle")).toInt());
-    }
-
-    virtual MUFormFilter&filterStyle(const MUFormFilterStyle &value)
-    {
-        return this->setFilterStyle(value);
-    }
-
-    virtual MUFormFilter&setFilterStyle(const QVariant &value)
-    {
-        this->v.insert(qsl("filterStyle"), value);
-        return*this;
-    }
-
-    virtual QVariant toVariant()const
-    {
-        return this->v;
-    };
+    //!
+    //! \brief toVariant
+    //! \return
+    //!
+    virtual QVariant toVariant()const;;
 
 private:
     QVariantHash v;

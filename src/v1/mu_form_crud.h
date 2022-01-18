@@ -8,9 +8,7 @@
 class Q_QMETAUI_FORM_EXPORT MUFormCrudItem : public QStm::Object{
     Q_OBJECT
 public:
-    Q_INVOKABLE explicit MUFormCrudItem(QObject*parent=nullptr):QStm::Object(parent), item(parent)
-    {
-    }
+    Q_INVOKABLE explicit MUFormCrudItem(QObject*parent=nullptr);
     MUFormLinkItemBase item;
 };
 
@@ -20,7 +18,9 @@ public:
 class Q_QMETAUI_FORM_EXPORT MUFormCrud:public MUFormLinkCollectionBase{
     Q_OBJECT
 public:
-    explicit MUFormCrud(QObject*parent=nullptr):MUFormLinkCollectionBase(parent)
-    {
-    }
+    //!
+    //! \brief MUFormCrud
+    //! \param parent
+    //!
+    Q_INVOKABLE explicit MUFormCrud(QObject*parent=nullptr);
 };

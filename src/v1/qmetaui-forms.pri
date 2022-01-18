@@ -29,6 +29,7 @@ HEADERS += \
 
 SOURCES += \
     $$PWD/mu_form_body.cpp \
+    $$PWD/mu_form_crud.cpp \
     $$PWD/mu_form_filter.cpp \
     $$PWD/mu_form_filters.cpp \
     $$PWD/mu_form_header.cpp \

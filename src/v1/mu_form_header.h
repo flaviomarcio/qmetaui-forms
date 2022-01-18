@@ -40,337 +40,162 @@ public:
     Q_PROPERTY(QVariant     inputMask           READ inputMask          WRITE setInputMask          )
     Q_PROPERTY(QVariant     inputLinks          READ inputLinks         WRITE setInputLinks         )
 
-    explicit MUFormHeader(QObject*parent=nullptr):QStm::Object(parent)
-    {
-    }
+    Q_INVOKABLE explicit MUFormHeader(QObject*parent=nullptr);
 
-    virtual QVariant order() const
-    {
-        return QVariant(this->v.value(vpOrder).toInt());
-    }
-
-    virtual MUFormHeader&order(const QVariant &order)
-    {
-        return this->setOrder(order);
-    }
-
+    //!
+    //! \brief order
+    //! \return
+    //!
+    virtual QVariant order() const;
     virtual MUFormHeader&setOrder(const QVariant &order)
     {
         this->v.insert(vpOrder,order.toInt());
         return*this;
     }
 
-    virtual QVariant type()
-    {
-        return QVariant(this->v.value(vpType));
-    }
+    //!
+    //! \brief type
+    //! \return
+    //!
+    virtual QVariant type()const;
+    virtual MUFormHeader&setType(const QVariant &type);
 
-    virtual MUFormHeader&type(const QVariant &type)
-    {
-        return this->setType(type);
-    }
+    //!
+    //! \brief value
+    //! \return
+    //!
+    virtual QString value() const;
+    virtual MUFormHeader&setValue(const QVariant &value);
 
-    virtual MUFormHeader&setType(const QVariant &type)
-    {
-        this->v.insert(vpType,type);
-        return*this;
-    }
+    //!
+    //! \brief defaultValue
+    //! \return
+    //!
+    virtual QString defaultValue() const;
+    virtual MUFormHeader&setDefaultValue(const QVariant &value);
 
-    virtual QString value() const
-    {
-        return this->v.value(vpValue).toByteArray();
-    }
+    //!
+    //! \brief defaultSelect
+    //! \return
+    //!
+    virtual QVariant defaultSelect() const;
+    virtual MUFormHeader&setDefaultSelect(const QVariant &value);
 
-    virtual MUFormHeader&value(const QVariant &value)
-    {
-        return this->setValue(value);
-    }
+    //!
+    //! \brief text
+    //! \return
+    //!
+    virtual QString text() const;
+    virtual MUFormHeader&setText(const QVariant &value);
 
-    virtual MUFormHeader&setValue(const QVariant &value)
-    {
-        this->v.insert(vpValue, value.toByteArray());
-        return*this;
-    }
+    //!
+    //! \brief align
+    //! \return
+    //!
+    virtual QVariant align() const;
+    virtual MUFormHeader&setAlign(const QVariant& value);
 
-    virtual QString defaultValue() const
-    {
-        return this->v.value(vpDefaultValue).toByteArray();
-    }
+    //!
+    //! \brief width
+    //! \return
+    //!
+    virtual QVariant width() const;
+    virtual MUFormHeader&setWidth(const QVariant& value);
 
-    virtual MUFormHeader&defaultValue(const QVariant &value)
-    {
-        return this->setDefaultValue(value);
-    }
+    //!
+    //! \brief inputType
+    //! \return
+    //!
+    virtual QVariant inputType() const;
+    virtual MUFormHeader&setInputType(const QVariant &value);
 
-    virtual MUFormHeader&setDefaultValue(const QVariant &value)
-    {
-        this->v.insert(vpDefaultValue, value.toByteArray());
-        return*this;
-    }
+    //!
+    //! \brief inputMask
+    //! \return
+    //!
+    virtual QVariant inputMask() const;
+    virtual MUFormHeader&setInputMask(const QVariant &value);
 
-    virtual QVariant defaultSelect() const
-    {
-        return this->v.value(vpDefaultSelect);
-    }
+    //!
+    //! \brief inputLinks
+    //! \return
+    //!
+    virtual QVariant inputLinks() const;
+    virtual MUFormHeader&setInputLinks(const QVariant &value);
 
-    virtual MUFormHeader&defaultSelect(const QVariant &value)
-    {
-        this->v.insert(vpDefaultSelect, value);
-        return*this;
-    }
+    //!
+    //! \brief length
+    //! \return
+    //!
+    virtual QVariant length() const;
+    virtual MUFormHeader&setLength(const QVariant &value);
 
-    virtual MUFormHeader&setDefaultSelect(const QVariant &value)
-    {
-        this->v.insert(vpDefaultSelect, value);
-        return*this;
-    }
+    //!
+    //! \brief visible
+    //! \return
+    //!
+    virtual bool visible() const;
+    virtual MUFormHeader&setVisible(const QVariant&value);
 
-    virtual QString text() const
-    {
-        return this->v.value(vpText).toByteArray();
-    }
+    //!
+    //! \brief readOnly
+    //! \return
+    //!
+    virtual bool readOnly() const;
+    virtual MUFormHeader&setReadOnly(const QVariant&value);
 
-    virtual MUFormHeader&text(const QVariant &value)
-    {
-        return this->setText(value);
-    }
+    //!
+    //! \brief editable
+    //! \return
+    //!
+    virtual bool editable() const;
+    virtual MUFormHeader&setEditable(const QVariant&value);
 
-    virtual MUFormHeader&setText(const QVariant &value)
-    {
-        this->v.insert(vpText, value.toByteArray());
-        return*this;
-    }
+    //!
+    //! \brief sortable
+    //! \return
+    //!
+    virtual bool sortable() const;
+    virtual MUFormHeader&setSortable(const QVariant&value);
 
-    virtual QVariant align() const
-    {
-        return this->v.value(vpAlign);
-    }
+    //!
+    //! \brief filtrable
+    //! \return
+    //!
+    virtual bool filtrable() const;
+    virtual MUFormHeader&setFiltrable(const QVariant&value);
 
-    virtual MUFormHeader&align(const QVariant& value)
-    {
-        return this->setAlign(value);
-    }
+    //!
+    //! \brief filtrableStrategy
+    //! \return
+    //!
+    virtual QVariantHash filtrableStrategy() const;
+    virtual MUFormHeader&setFiltrableStrategy(const QVariant&value);
 
-    virtual MUFormHeader&setAlign(const QVariant& value)
-    {
-        this->v.insert(vpAlign, value);
-        return*this;
-    }
+    //!
+    //! \brief filterStyle
+    //! \return
+    //!
+    virtual MUFormFilterStyle filterStyle() const;
+    virtual MUFormHeader&setFilterStyle(const QVariant &value);
 
-    virtual QVariant width() const
-    {
-        return this->v.value(vpWidth).toBool();
-    }
+    //!
+    //! \brief toVar
+    //! \return
+    //!
+    virtual QVariant toVar()const;;
 
-    virtual MUFormHeader&width(const QVariant& value)
-    {
-        return this->setWidth(value);
-    }
+    //!
+    //! \brief toHash
+    //! \return
+    //!
+    QVariantHash toHash()const;;
 
-    virtual MUFormHeader&setWidth(const QVariant& value)
-    {
-        this->v.insert(vpWidth, value);
-        return*this;
-    }
-
-    virtual QVariant inputType() const
-    {
-        return this->v.value(vpInputType);
-    }
-
-    virtual MUFormHeader&inputType(const QVariant &value)
-    {
-        this->v.insert(vpInputType, value);
-        return*this;
-    }
-
-    virtual MUFormHeader&setInputType(const QVariant &value)
-    {
-        this->v.insert(vpInputType, value);
-        return*this;
-    }
-
-    virtual QVariant inputMask() const
-    {
-        return this->v.value(vpInputType);
-    }
-
-    virtual MUFormHeader&inputMask(const QVariant &value)
-    {
-        this->v.insert(vpInputMask, value);
-        return*this;
-    }
-
-    virtual MUFormHeader&setInputMask(const QVariant &value)
-    {
-        this->v.insert(vpInputMask, value);
-        return*this;
-    }
-
-    virtual QVariant inputLinks() const
-    {
-        return this->v.value(vtInputLinks);
-    }
-
-    virtual MUFormHeader&inputLinks(const QVariant &value)
-    {
-        this->v.insert(vtInputLinks, value);
-        return*this;
-    }
-
-    virtual MUFormHeader&setInputLinks(const QVariant &value)
-    {
-        this->v.insert(vtInputLinks, value);
-        return*this;
-    }
-
-    virtual QVariant length() const
-    {
-        return this->v.value(vpLength);
-    }
-
-    virtual MUFormHeader&length(const QVariant &value)
-    {
-        this->v.insert(vpLength, value.toInt());
-        return*this;
-    }
-
-    virtual MUFormHeader&setLength(const QVariant &value)
-    {
-        this->v.insert(vpLength, value.toInt());
-        return*this;
-    }
-
-    virtual bool visible() const
-    {
-        return this->v.value(vpVisible).toBool();
-    }
-
-    virtual MUFormHeader&visible(const QVariant&value)
-    {
-        return this->setVisible(value);
-    }
-
-    virtual MUFormHeader&setVisible(const QVariant&value)
-    {
-        auto v=(value.isNull() || !value.isValid())?true:value.toBool();
-        this->v.insert(vpVisible, v);
-        return*this;
-    }
-
-    virtual bool readOnly() const
-    {
-        return this->v.value(vpReadOnly).toBool();
-    }
-
-    virtual MUFormHeader&readOnly(const QVariant&value)
-    {
-        auto v=(value.isNull() || !value.isValid())?true:value.toBool();
-        this->v.insert(vpReadOnly, v);
-        return*this;
-    }
-
-    virtual MUFormHeader&setReadOnly(const QVariant&value)
-    {
-        auto v=(value.isNull() || !value.isValid())?true:value.toBool();
-        this->v.insert(vpReadOnly, v);
-        return*this;
-    }
-
-    virtual bool editable() const
-    {
-        return this->v.value(vpEditable).toBool();
-    }
-
-    virtual MUFormHeader&editable(const QVariant&value)
-    {
-        return this->setEditable(value);
-    }
-
-    virtual MUFormHeader&setEditable(const QVariant&value)
-    {
-        this->v.insert(vpEditable, value.toBool());
-        return*this;
-    }
-
-    virtual bool sortable() const
-    {
-        return this->v.value(vpSortable).toBool();
-    }
-
-    virtual MUFormHeader&sortable(const QVariant&value)
-    {
-        return this->setSortable(value);
-    }
-
-    virtual MUFormHeader&setSortable(const QVariant&value)
-    {
-        this->v.insert(vpSortable, value.toBool());
-        return*this;
-    }
-
-    virtual bool filtrable() const
-    {
-        return this->v.value(vpFiltrable).toBool();
-    }
-
-    virtual MUFormHeader&filtrable(const QVariant&value)
-    {
-        return this->setFiltrable(value);
-    }
-
-    virtual MUFormHeader&setFiltrable(const QVariant&value)
-    {
-        this->v.insert(vpFiltrable, value.toBool());
-        return*this;
-    }
-
-    virtual QVariantHash filtrableStrategy() const
-    {
-        return this->v.value(vpFiltrableStrategy).toHash();
-    }
-
-    virtual MUFormHeader&filtrableStrategy(const QVariant&value)
-    {
-        return this->setFiltrableStrategy(value);
-    }
-
-    virtual MUFormHeader&setFiltrableStrategy(const QVariant&value)
-    {
-        this->v.insert(vpFiltrableStrategy, value);
-        return*this;
-    }
-
-    virtual MUFormFilterStyle filterStyle() const
-    {
-        return MUFormFilterStyle(this->v.value(vpFilterStyle).toInt());
-    }
-
-    virtual MUFormHeader&filterStyle(const QVariant &value)
-    {
-        return this->setFilterStyle(value);
-    }
-
-    virtual MUFormHeader&setFilterStyle(const QVariant &value)
-    {
-        this->v.insert(vpFilterStyle, value.toInt());
-        return*this;
-    }
-
-    virtual QVariant toVar()const
-    {
-        return this->v;
-    };
-
-    QVariantHash toHash()const
-    {
-        return this->v;
-    };
-
-    virtual QVariantMap toMap()const
-    {
-        return QVariant(this->v).toMap();
-    };
+    //!
+    //! \brief toMap
+    //! \return
+    //!
+    virtual QVariantMap toMap()const;;
 
 private:
     QVariantHash v;

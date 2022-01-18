@@ -15,108 +15,80 @@ public:
 
     Q_ENUM(FilterStyle)
 
+    //!
+    //! \brief MUFormHeaders
+    //! \param parent
+    //!
+    explicit MUFormHeaders(QObject*parent=nullptr);
 
-    explicit MUFormHeaders(QObject*parent=nullptr):QStm::Object(parent)
-    {
-    }
+    //!
+    //! \brief clear
+    //! \return
+    //!
+    virtual MUFormHeaders&clear();
 
-    virtual MUFormHeaders&clear()
-    {
-        this->___objectMap.clear();
-        this->___objectList.clear();
-        return*this;
-    }
+    //!
+    //! \brief toVar
+    //! \return
+    //!
+    virtual QVariant toVar()const;;
 
-    virtual QVariant toVar()const
-    {
-        QVariantList vList;
-        for(const auto&v:this->___objectList)
-            vList<<v->toVar();
-        return vList;
-    };
+    //!
+    //! \brief toList
+    //! \return
+    //!
+    virtual QVariant toList()const;;
 
-    virtual QVariant toList()const
-    {
-        QVariantList vList;
-        for(const auto&v:this->___objectList)
-            vList<<v->toVar();
-        return vList;
-    };
+    //!
+    //! \brief get
+    //! \param v
+    //! \return
+    //!
+    virtual MUFormHeader* get(const QString&v);
 
-    virtual MUFormHeader* get(const QString&v)
-    {
-        return this->___objectMap.value(v);
-    }
+    //!
+    //! \brief remove
+    //! \param v
+    //! \return
+    //!
+    virtual MUFormHeaders&remove(const QString&v);
 
-    virtual MUFormHeaders&remove(const QString&v)
-    {
-        if(this->___objectMap.contains(v)){
-            auto object=this->___objectMap.take(v);
-            this->___objectList.removeOne(object);
-            delete object;
-        }
-        return*this;
-    }
+    //!
+    //! \brief value
+    //! \param v
+    //! \return
+    //!
+    virtual MUFormHeader&value(const QString&v);
 
-    virtual MUFormHeader&value(const QString&v)
-    {
-        return this->value(QVariantHash{{vpValue,v}});
-    }
+    //!
+    //! \brief value
+    //! \param v
+    //! \return
+    //!
+    virtual MUFormHeader&value(const QVariantHash&v);
 
-    virtual MUFormHeader&value(const QVariantHash&v)
-    {
-        auto value=v.value(vpValue).toString();
-        auto object=this->___objectMap.value(value);
-        if(object==nullptr){
-            object=new MUFormHeader(this);
-            object->order(this->___objectMap.count());
-            this->___objectList<<object;
-            this->___objectMap.insert(value, object);
-        }
-        object->type(v.value(vpType));
-        object->value(v.value(vpValue));
-        object->defaultValue(v.value(vpDefaultValue));
-        object->defaultSelect(v.value(vpDefaultSelect));
-        object->text(v.value(vpText));
-        object->align(v.value(vpAlign));
-        object->width(v.value(vpWidth));
-        object->visible(v.value(vpVisible));
-        object->readOnly(v.value(vpReadOnly));
-        object->editable(v.value(vpEditable));
-        object->sortable(v.value(vpSortable));
-        object->length(v.value(vpLength));
-        object->filtrable(v.value(vpFiltrable));
-        object->filtrableStrategy(v.value(vpFiltrableStrategy));
-        object->filterStyle(v.value(vpFilterStyle));
-        object->inputType(v.value(vpInputType));
-        object->inputMask(v.value(vpInputMask));
-        object->inputLinks(v.value(vtInputLinks));
-        return*object;
-    }
+    //!
+    //! \brief makeDefault
+    //! \return
+    //!
+    virtual MUFormHeader&makeDefault();
 
-    virtual MUFormHeader&makeDefault()
-    {
-        static auto vAction=QVariantHash( { { vpValue, vpActions}, { vpText, qsl_null}, { vpSortable, false }, { vpVisible, true }, { vpWidth, qsl("0%") }});
-        return this->value(vAction);
-    }
+    //!
+    //! \brief unMakeDefault
+    //! \return
+    //!
+    virtual MUFormHeaders&unMakeDefault();
 
-    virtual MUFormHeaders&unMakeDefault()
-    {
-        return this->remove(vpActions);
-    }
+    //!
+    //! \brief list
+    //! \return
+    //!
+    virtual QList<MUFormHeader*>&list();
 
-    virtual QList<MUFormHeader*>&list()
-    {
-        this->reOrder();
-        return this->___objectList;
-    }
-
-    virtual void reOrder()
-    {
-        auto i=0;
-        for(auto&v:this->___objectList)
-            v->setOrder(i++);
-    }
+    //!
+    //! \brief reOrder
+    //!
+    virtual void reOrder();
 
 protected:
     QMap<QString, MUFormHeader*> ___objectMap;

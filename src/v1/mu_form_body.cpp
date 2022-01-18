@@ -78,7 +78,7 @@ public:
     {
         const auto className=QString::fromUtf8(this->parent->parent()->metaObject()->className()).toLower().trimmed();
         auto settings=dtoSettings->value(className).toHash();
-        this->dtoControls.settings(settings);
+        this->dtoControls.setSettings(settings);
     }
 
     void clear()
@@ -111,13 +111,6 @@ QString MUFormBody::id() const
     return p.dtoControls.id();
 }
 
-MUFormBody &MUFormBody::id(const QVariant &v)
-{
-    dPvt();
-    p.dtoControls.id(v);
-    return*this;
-}
-
 MUFormBody &MUFormBody::setId(const QVariant &value)
 {
     dPvt();
@@ -135,17 +128,10 @@ QVariant MUFormBody::type() const
     return value;
 }
 
-MUFormBody &MUFormBody::type(const QVariant &v)
-{
-    dPvt();
-    p.dtoControls.type(v);
-    return*this;
-}
-
 MUFormBody &MUFormBody::setType(const QVariant &v)
 {
     dPvt();
-    p.dtoControls.type(v);
+    p.dtoControls.setType(v);
     return*this;
 }
 
@@ -158,24 +144,10 @@ QVariant MUFormBody::layout() const
     return value;
 }
 
-MUFormBody &MUFormBody::layout(const QVariant &v)
-{
-    dPvt();
-    p.dtoControls.layout(v);
-    return*this;
-}
-
 MUFormBody &MUFormBody::setLayout(const QVariant &v)
 {
     dPvt();
-    p.dtoControls.layout(v);
-    return*this;
-}
-
-MUFormBody &MUFormBody::settings(const QVariant &setting)
-{
-    dPvt();
-    p.dtoControls.settings(setting.toHash());
+    p.dtoControls.setLayout(v);
     return*this;
 }
 
@@ -209,29 +181,22 @@ MUFormItems &MUFormBody::items()
     return p.dtoControls.items();
 }
 
-MUFormControls &MUFormBody::items(const QVariant &v)
+MUFormControls &MUFormBody::setItems(const QVariant &v)
 {
     dPvt();
-    return p.dtoControls.items(v);
+    return p.dtoControls.setItems(v);
 }
 
-MUFormControls &MUFormBody::items(const ResultValue &lr)
+MUFormControls &MUFormBody::setItems(const ResultValue &lr)
 {
     dPvt();
-    return p.dtoControls.items(lr.resultVariant());
+    return p.dtoControls.setItems(lr.resultVariant());
 }
 
 QStm::ResultInfo &MUFormBody::resultInfo()
 {
     dPvt();
     return p.dtoControls.resultInfo();
-}
-
-MUFormControls &MUFormBody::resultInfo(const QVariant &v)
-{
-    dPvt();
-    p.dtoControls.resultInfo().fromVar(v);
-    return p.dtoControls;
 }
 
 MUFormControls &MUFormBody::setResultInfo(const QStm::ResultInfo &resultInfo)
@@ -244,7 +209,7 @@ MUFormControls &MUFormBody::setResultInfo(const QStm::ResultInfo &resultInfo)
 MUFormBody &MUFormBody::setValue(const QVariant &v)
 {
     dPvt();
-    p.dtoControls.items(v);
+    p.dtoControls.setItems(v);
     return*this;
 }
 
@@ -254,17 +219,10 @@ QString MUFormBody::text() const
     return p.dtoControls.text();
 }
 
-MUFormBody &MUFormBody::text(const QVariant &v)
-{
-    dPvt();
-    p.dtoControls.text(v);
-    return*this;
-}
-
 MUFormBody &MUFormBody::setText(const QVariant &v)
 {
     dPvt();
-    p.dtoControls.text(v);
+    p.dtoControls.setText(v);
     return*this;
 }
 
@@ -272,13 +230,6 @@ QVariantHash MUFormBody::sort() const
 {
     dPvt();
     return p.dtoControls.sort();
-}
-
-MUFormBody &MUFormBody::sort(const QVariant &v)
-{
-    dPvt();
-    p.dtoControls.sort(v);
-    return*this;
 }
 
 MUFormBody &MUFormBody::setSort(const QVariant &v)
@@ -292,6 +243,13 @@ MUFormBody &MUFormBody::setValue(const ResultValue &lr)
 {
     dPvt();
     p.dtoControls.setValue(lr.resultVariant());
+    return*this;
+}
+
+MUFormBody &MUFormBody::setSettings(const QVariant &setting)
+{
+    dPvt();
+    p.dtoControls.setSettings(setting.toHash());
     return*this;
 }
 

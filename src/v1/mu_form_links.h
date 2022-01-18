@@ -8,19 +8,16 @@
 class Q_QMETAUI_FORM_EXPORT MUFormLinks:public MUFormLinkCollectionBase{
     Q_OBJECT
 public:
-    explicit MUFormLinks(QObject*parent=nullptr):MUFormLinkCollectionBase(parent)
-    {
-    }
+    //!
+    //! \brief MUFormLinks
+    //! \param parent
+    //!
+    Q_INVOKABLE explicit MUFormLinks(QObject*parent=nullptr);
 
-    virtual MUFormLinkItem&ref(const QVariant&ref)
-    {
-
-        auto object=MUFormLinkCollectionBase::find(ref);
-        if(object==nullptr){
-            object=new MUFormLinkItem(this);
-            object->setRef(ref);
-            MUFormLinkCollectionBase::ref(object);
-        }
-        return*dynamic_cast<MUFormLinkItem*>(object) ;
-    }
+    //!
+    //! \brief ref
+    //! \param ref
+    //! \return
+    //!
+    virtual MUFormLinkItem&ref(const QVariant&ref);
 };
