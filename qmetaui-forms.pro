@@ -1,4 +1,12 @@
 TARGET = QMetaUiForms
 TEMPLATE = lib
 
-include($$PWD/src/qmetaui-forms.pri)
+CONFIG += c++17
+CONFIG += silent
+
+include($$PWD/../qstatusbar/qstatusbar.pri)
+include($$PWD/../qtinyaes/qtinyaes.pri)
+include($$PWD/../qstm/qstm.pri)
+include($$PWD/../qrpc/src/qrpc-client.pri)
+include($$PWD/../qmetaui/qmetaui.pri)
+include($$PWD/qmetaui-forms.pri)

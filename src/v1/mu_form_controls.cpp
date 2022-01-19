@@ -38,7 +38,7 @@ static const auto __MUFormLayoutHash = __makeMUFormLayout();
 #define dPvt()\
 auto&p = *reinterpret_cast<MUFormControlsPvt*>(this->p)
 
-class Q_QMETAUI_FORM_EXPORT MUFormControlsPvt{
+class MUFormControlsPvt{
 public:
     QString id;
     QString text;

@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/QMetaUI/Form/Core">
+        <file>qmldir</file>
+        <file>MCFormRunner.qml</file>
+        <file>MCFormLoader.qml</file>
+        <file>MCFormControlItem.qml</file>
+    </qresource>
+</RCC>

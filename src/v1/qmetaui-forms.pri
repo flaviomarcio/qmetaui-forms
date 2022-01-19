@@ -13,6 +13,7 @@ QT += location
 HEADERS += \
     $$PWD/mu_form_body.h \
     $$PWD/mu_form_consts.h \
+    $$PWD/mu_form_control_cache.h \
     $$PWD/mu_form_crud.h \
     $$PWD/mu_form_filter.h \
     $$PWD/mu_form_filters.h \
@@ -23,12 +24,16 @@ HEADERS += \
     $$PWD/mu_form_link.h \
     $$PWD/mu_form_links.h \
     $$PWD/mu_form_macro.h \
+    $$PWD/mu_form_register.h \
+    $$PWD/mu_form_runner.h \
+    $$PWD/mu_form_setting.h \
     $$PWD/mu_form_types.h \
     $$PWD/mu_form_controls.h \
     $$PWD/private/p_mu_form_link_base.h
 
 SOURCES += \
     $$PWD/mu_form_body.cpp \
+    $$PWD/mu_form_control_cache.cpp \
     $$PWD/mu_form_crud.cpp \
     $$PWD/mu_form_filter.cpp \
     $$PWD/mu_form_filters.cpp \
@@ -38,4 +43,7 @@ SOURCES += \
     $$PWD/mu_form_link.cpp \
     $$PWD/mu_form_links.cpp \
     $$PWD/mu_form_controls.cpp \
+    $$PWD/mu_form_register.cpp \
+    $$PWD/mu_form_runner.cpp \
+    $$PWD/mu_form_setting.cpp \
     $$PWD/private/p_mu_form_link_base.cpp
