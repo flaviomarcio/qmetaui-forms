@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/moduleDemo">
+        <file>LauncherMain.qml</file>
+        <file>QOption600.qml</file>
+        <file>QOption601.qml</file>
+        <file>qmldir</file>
+        <file>crud.json</file>
+    </qresource>
+</RCC>

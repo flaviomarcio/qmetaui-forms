@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QQmlApplicationEngine>
+#include <QtQml>
 #include <QMetaUi/Core>
 #include "./mu_form_global.h"
 #include "./mu_form_types.h"

@@ -5,4 +5,12 @@
         <file>MCFormLoader.qml</file>
         <file>MCFormControlItem.qml</file>
     </qresource>
+    <qresource prefix="/QMetaUI/Form/Basic">
+        <file>MCFormDialog.qml</file>
+        <file>MCFormItem.qml</file>
+    </qresource>
+    <qresource prefix="/QMetaUI/Form/Business">
+        <file>MCFormReport.qml</file>
+        <file>MCFormCRUD.qml</file>
+    </qresource>
 </RCC>

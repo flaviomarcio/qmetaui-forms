@@ -1,4 +1,5 @@
-import QtQuick 2.14
+import QtQuick 2.15
+import QtQuick.Controls 2.15
 
 MCFormControlItem {
     id: control
@@ -18,11 +19,9 @@ MCFormControlItem {
     //return control state loaded
     readonly property bool isLoaded: loader.isLoaded
 
-    signal show()
     signal reset()
     signal refresh()
     signal update()
-    signal close()
 
     signal load()
     signal loaded(var form)
@@ -40,6 +39,8 @@ MCFormControlItem {
             loader.source = control.source
             return;
         }
+
+        console.log(loader.source)
 
         loader.free()
     }
@@ -62,8 +63,10 @@ MCFormControlItem {
         onStatusChanged: {
             if(loader.status===Loader.Ready){
                 control.visible = false
-                control.form = loader.item
-                control.form.parent = control.parent
+                loader.item.visible=true
+                loader.item.parent = control.parent
+                loader.item.anchors.fill=control.parent
+
                 connection.target = form
                 control.loaded(form)
                 isLoaded=true

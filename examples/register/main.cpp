@@ -1,7 +1,7 @@
 #include <QGuiApplication>
 #include <QMetaUi/Core>
+#include <QtQml>
 #include "../../src/v1/mu_form_register.h"
-#include <QQmlApplicationEngine>
 
 
 int main(int argc, char *argv[])
@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     //QQmlApplicationEngine engine;
 
 
-    const QUrl url(QStringLiteral("qrc:/main.qml"));
+    const QUrl url(qsl("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
         &app, [url](QObject *obj, const QUrl &objUrl) {
             if (!obj && url == objUrl)

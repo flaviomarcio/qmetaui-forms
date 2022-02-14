@@ -1,0 +1,5 @@
+module moduleDemo
+
+LauncherMain 0.0 LauncherMain.qml
+QOption600 0.0 QOption600.qml
+QOption601 0.0 QOption601.qml

@@ -1,6 +1,8 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtReforce.Meta.Forms 0.0;
+import QtReforce.Meta.Forms 0.0
+import "qrc:/QMetaUI/Form/Core"
+//import "qrc:/moduleDemo"
 
 ApplicationWindow {
     width: 640
@@ -13,10 +15,18 @@ ApplicationWindow {
         anchors.fill: parent
         currentIndex: tabBar.currentIndex
 
-        Page1Form {
+        Page{
+            MCFormRunner {
+                anchors.fill: parent
+                source: "file:///home/debian/git/github/qtreforce/qtreforce-sdk/src/3rdparty/qmetaui-forms/examples/register/QOption600.qml"
+            }
         }
 
-        Page2Form {
+        Page{
+            MCFormRunner {
+                anchors.fill: parent
+                source: "file:///home/debian/git/github/qtreforce/qtreforce-sdk/src/3rdparty/qmetaui-forms/examples/register/QOption600.qml"
+            }
         }
     }
 
@@ -25,10 +35,10 @@ ApplicationWindow {
         currentIndex: swipeView.currentIndex
 
         TabButton {
-            text: qsTr("Page 1")
+            text: qsTr("QOption600")
         }
         TabButton {
-            text: qsTr("Page 2")
+            text: qsTr("QOption601")
         }
     }
 }
