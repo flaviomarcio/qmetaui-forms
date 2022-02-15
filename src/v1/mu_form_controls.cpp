@@ -40,7 +40,7 @@ auto&p = *reinterpret_cast<MUFormControlsPvt*>(this->p)
 
 class MUFormControlsPvt{
 public:
-    QString id;
+    QString resource;
     QString text;
     QVariant type=__MUFormWindowTypeHash.key(dftReportForm);
     QVariant layout=__MUFormLayoutHash.key(dflVerticalControls);
@@ -154,28 +154,46 @@ public:
 //        return vHash;
 //    }
 
+    void setFileName(const QString&fileName)
+    {
+        QFile file(fileName);
+        if(!file.exists())
+            return;
+
+        if(!file.open(file.ReadOnly))
+            return;
+
+        auto v=QJsonDocument::fromJson(file.readAll()).toVariant();
+        file.close();
+        this->setSettings(v);
+    }
+
 
     void setSettings(const QVariant&value)
     {
         auto vHash=value.toHash();
+
+        if(vHash.isEmpty())
+            return;
+
         QVariantHash v;
-        if(!vHash.isEmpty()){
-            auto id=this->id.toLower().trimmed();
-            if(!id.isEmpty() || vHash.contains(id)){
-                v=vHash.value(id).toHash();
-            }
-            else if(vHash.contains(qsl_null) || vHash.contains(vpDefault)){
-                v=vHash.value(vpDefault).toHash();
-                if(v.isEmpty())
-                    v=vHash.value(qsl_null).toHash();
-            }
+        auto resource=this->resource.toLower().trimmed();
+        if(vHash.contains(qsl("id")))
+            v=vHash;
+        else if(!resource.isEmpty() || vHash.contains(resource))
+            v=vHash.value(resource).toHash();
+        else if(vHash.contains(qsl_null) || vHash.contains(vpDefault)){
+            v=vHash.value(vpDefault).toHash();
+            if(v.isEmpty())
+                v=vHash.value(qsl_null).toHash();
         }
 
-        if(!v.isEmpty()){
-            this->headers.fromHash(v.value(vpHeaders).toHash());
-            this->filters.fromHash(v.value(vpFilters).toHash());
-            this->items.fromList(v.value(vpItems));
-        }
+        if(v.isEmpty())
+            return;
+
+        this->headers.fromVar(v.value(vpHeaders));
+        this->filters.fromVar(v.value(vpFilters));
+        this->items.fromVar(v.value(vpItems));
     }
 
     void clear()
@@ -211,16 +229,16 @@ MUFormControls &MUFormControls::setResultInfo(const QStm::ResultInfo &resultInfo
     return*this;
 }
 
-QString MUFormControls::id() const
+QString MUFormControls::resource() const
 {
     dPvt();
-    return p.id;
+    return p.resource;
 }
 
-MUFormControls &MUFormControls::id(const QVariant&v)
+MUFormControls &MUFormControls::setResource(const QVariant&v)
 {
     dPvt();
-    p.id=v.toString();
+    p.resource=v.toString();
     return*this;
 }
 
@@ -339,28 +357,28 @@ MUFormItems &MUFormControls::items()
 MUFormControls &MUFormControls::setItems(const QVariant &v)
 {
     dPvt();
-    p.items.fromList(v);
+    p.items.fromVar(v);
     return*this;
 }
 
 MUFormControls &MUFormControls::setItems(const ResultValue &lr)
 {
     dPvt();
-    p.items.fromList(this->lr(lr).resultVariant());
+    p.items.fromVar(this->lr(lr).resultVariant());
     return*this;
 }
 
 MUFormControls &MUFormControls::setValue(const QVariant &v)
 {
     dPvt();
-    p.items.fromList(v);
+    p.items.fromVar(v);
     return*this;
 }
 
 MUFormControls &MUFormControls::setValue(const ResultValue &lr)
 {
     dPvt();
-    p.items.fromList(this->lr(lr).resultVariant());
+    p.items.fromVar(this->lr(lr).resultVariant());
     return*this;
 }
 
@@ -368,6 +386,13 @@ MUFormControls &MUFormControls::setSettings(const QVariant &setting)
 {
     dPvt();
     p.setSettings(setting);
+    return*this;
+}
+
+MUFormControls &MUFormControls::setFileName(const QString &fileName)
+{
+    dPvt();
+    p.setFileName(fileName);
     return*this;
 }
 

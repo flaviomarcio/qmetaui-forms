@@ -11,8 +11,7 @@
 //!
 //! \brief The MUFormControls class
 //!
-class Q_QMETAUI_FORM_EXPORT MUFormControls : public QStm::Object
-{
+class Q_QMETAUI_FORM_EXPORT MUFormControls : public QStm::Object{
     Q_OBJECT
 public:
 
@@ -35,8 +34,8 @@ public:
     //! \brief id
     //! \return
     //!
-    virtual QString id()const;
-    virtual MUFormControls&id(const QVariant &v);
+    virtual QString resource()const;
+    virtual MUFormControls&setResource(const QVariant &v);
 
     //!
     //! \brief type
@@ -118,7 +117,14 @@ public:
     //! \param setting
     //! \return
     //!
-    virtual MUFormControls&setSettings(const QVariant&setting);
+    Q_INVOKABLE virtual MUFormControls&setSettings(const QVariant&setting);
+
+    //!
+    //! \brief setFileName
+    //! \param setting
+    //! \return
+    //!
+    Q_INVOKABLE virtual MUFormControls&setFileName(const QString &fileName);
 
 
     //!

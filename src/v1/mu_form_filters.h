@@ -1,11 +1,12 @@
 #pragma once
 
 #include "./mu_form_filter.h"
+#include "./mu_form_object_model.h"
 
 //!
 //! \brief The MUFormFilters class
 //!
-class Q_QMETAUI_FORM_EXPORT MUFormFilters:public QStm::Object{
+class Q_QMETAUI_FORM_EXPORT MUFormFilters:public MUFormObjectModel{
     Q_OBJECT
 public:
 
@@ -14,12 +15,19 @@ public:
     //! \param parent
     //!
     Q_INVOKABLE explicit MUFormFilters(QObject*parent=nullptr);
+    ~MUFormFilters();
+
+    //!
+    //! \brief objectMetaObject
+    //! \return
+    //!
+    virtual const QMetaObject &objectMetaObject() const;
 
     //!
     //! \brief toVar
     //! \return
     //!
-    virtual QVariant toVar()const;;
+    virtual QVariant toVar()const;
 
     //!
     //! \brief value
@@ -33,14 +41,8 @@ public:
     //! \brief clear
     //! \return
     //!
-    virtual MUFormFilters&clear();
-
-    //!
-    //! \brief list
-    //! \return
-    //!
-    virtual QList<MUFormFilter*>&list();
+    virtual void clear();
 
 private:
-    QList<MUFormFilter*> ___objectList;
+    void*p=nullptr;
 };

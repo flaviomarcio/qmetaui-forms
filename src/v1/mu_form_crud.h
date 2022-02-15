@@ -9,7 +9,17 @@ class Q_QMETAUI_FORM_EXPORT MUFormCrudItem : public QStm::Object{
     Q_OBJECT
 public:
     Q_INVOKABLE explicit MUFormCrudItem(QObject*parent=nullptr);
-    MUFormLinkItemBase item;
+    ~MUFormCrudItem();
+
+    //!
+    //! \brief item
+    //! \return
+    //!
+    const MUFormLinkItemBase &item() const;
+    MUFormCrudItem&setItem(const MUFormLinkItemBase &newItem);
+
+private:
+    void*p=nullptr;
 };
 
 //!
@@ -23,4 +33,11 @@ public:
     //! \param parent
     //!
     Q_INVOKABLE explicit MUFormCrud(QObject*parent=nullptr);
+
+    //!
+    //! \brief item
+    //! \return
+    //!
+    const MUFormLinkItemBase &item() const;
+    MUFormCrudItem&setItem(const MUFormLinkItemBase &newItem);
 };

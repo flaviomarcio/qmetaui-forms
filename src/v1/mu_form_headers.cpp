@@ -1,42 +1,84 @@
-#include "mu_form_headers.h"
+#include "./mu_form_headers.h"
+#include "./mu_form_header.h"
 
-MUFormHeaders::MUFormHeaders(QObject *parent):QStm::Object(parent)
+#define dPvt()\
+auto&p = *reinterpret_cast<MUFormHeadersPvt*>(this->p)
+
+class MUFormHeadersPvt{
+public:
+    MUFormHeaders*parent=nullptr;
+    QMap<QString, MUFormHeader*> ___objectMap;
+    QList<MUFormHeader*> ___objectList;
+    explicit MUFormHeadersPvt(MUFormHeaders*parent)
+    {
+        this->parent=parent;
+    }
+
+    virtual ~MUFormHeadersPvt()
+    {
+    }
+
+    void clear()
+    {
+        qDeleteAll(this->___objectList);
+        this->___objectMap.clear();
+        this->___objectList.clear();
+    }
+};
+
+MUFormHeaders::MUFormHeaders(QObject *parent):MUFormObjectModel(parent)
 {
+    this->p=new MUFormHeadersPvt(this);
 }
 
-MUFormHeaders &MUFormHeaders::clear()
+MUFormHeaders::~MUFormHeaders()
 {
-    this->___objectMap.clear();
-    this->___objectList.clear();
-    return*this;
+    dPvt();
+    delete&p;
+}
+
+const QMetaObject &MUFormHeaders::objectMetaObject()const
+{
+    return MUFormHeader::staticMetaObject;
+}
+
+void MUFormHeaders::clear()
+{
+    dPvt();
+    p.clear();
+    MUFormObjectModel::clear();
 }
 
 QVariant MUFormHeaders::toVar() const
 {
+    dPvt();
     QVariantList vList;
-    for(const auto&v:this->___objectList)
+    for(auto&v:p.___objectList)
         vList<<v->toVar();
     return vList;
 }
 
 QVariant MUFormHeaders::toList() const
 {
+    dPvt();
     QVariantList vList;
-    for(const auto&v:this->___objectList)
+    for(auto&v:p.___objectList)
         vList<<v->toVar();
     return vList;
 }
 
 MUFormHeader *MUFormHeaders::get(const QString &v)
 {
-    return this->___objectMap.value(v);
+    dPvt();
+    return p.___objectMap.value(v);
 }
 
 MUFormHeaders &MUFormHeaders::remove(const QString &v)
 {
-    if(this->___objectMap.contains(v)){
-        auto object=this->___objectMap.take(v);
-        this->___objectList.removeOne(object);
+    dPvt();
+    if(p.___objectMap.contains(v)){
+        auto object=p.___objectMap.take(v);
+        p.___objectList.removeOne(object);
         delete object;
     }
     return*this;
@@ -49,13 +91,14 @@ MUFormHeader &MUFormHeaders::value(const QString &v)
 
 MUFormHeader &MUFormHeaders::value(const QVariantHash &v)
 {
+    dPvt();
     auto value=v.value(vpValue).toString();
-    auto object=this->___objectMap.value(value);
+    auto object=p.___objectMap.value(value);
     if(object==nullptr){
         object=new MUFormHeader(this);
-        object->setOrder(this->___objectMap.count());
-        this->___objectList<<object;
-        this->___objectMap.insert(value, object);
+        object->setOrder(p.___objectMap.count());
+        p.___objectList<<object;
+        p.___objectMap.insert(value, object);
     }
     object->setType(v.value(vpType));
     object->setValue(v.value(vpValue));
@@ -91,13 +134,15 @@ MUFormHeaders &MUFormHeaders::unMakeDefault()
 
 QList<MUFormHeader *> &MUFormHeaders::list()
 {
+    dPvt();
     this->reOrder();
-    return this->___objectList;
+    return p.___objectList;
 }
 
 void MUFormHeaders::reOrder()
 {
+    dPvt();
     auto i=0;
-    for(auto&v:this->___objectList)
+    for(auto&v:p.___objectList)
         v->setOrder(i++);
 }

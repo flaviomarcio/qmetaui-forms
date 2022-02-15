@@ -1,14 +1,50 @@
 #include "mu_form_filters.h"
 
-MUFormFilters::MUFormFilters(QObject *parent):QStm::Object(parent)
+#define dPvt()\
+auto&p = *reinterpret_cast<MUFormFiltersPvt*>(this->p)
+
+class MUFormFiltersPvt{
+public:
+    MUFormFilters*parent=nullptr;
+    QList<MUFormFilter*> ___objectList;
+    explicit MUFormFiltersPvt(MUFormFilters*parent)
+    {
+        this->parent=parent;
+    }
+
+    virtual ~MUFormFiltersPvt()
+    {
+    }
+
+    void clear()
+    {
+        qDeleteAll(this->___objectList);
+        this->___objectList.clear();
+    }
+};
+
+MUFormFilters::MUFormFilters(QObject *parent):MUFormObjectModel(parent)
 {
+    this->p=new MUFormFiltersPvt(this);
+}
+
+MUFormFilters::~MUFormFilters()
+{
+    dPvt();
+    delete&p;
+}
+
+const QMetaObject &MUFormFilters::objectMetaObject() const
+{
+    return MUFormFilter::staticMetaObject;
 }
 
 QVariant MUFormFilters::toVar() const
 {
+    dPvt();
     QVariantList vList;
-    for(const auto&v:this->___objectList)
-        vList<<v->toVariant();
+    for(auto&v:p.___objectList)
+        vList<<v->toVar();
     return vList;
 }
 
@@ -19,6 +55,7 @@ MUFormFilter &MUFormFilters::value(const QString &v)
 
 MUFormFilter &MUFormFilters::setValue(const QVariantHash &v)
 {
+    dPvt();
     auto object=new MUFormFilter(this);
     object->setType(v.value(vpType));
     object->setValue(v.value(vpValue));
@@ -29,17 +66,13 @@ MUFormFilter &MUFormFilters::setValue(const QVariantHash &v)
     object->setSortable(v.value(vpSortable));
     object->setFiltrable(v.value(vpFiltrable));
     object->setFilterStyle(v.value(vpFilterStyle));
-    this->___objectList<<object;
+    p.___objectList<<object;
     return*object;
 }
 
-MUFormFilters &MUFormFilters::clear()
+void MUFormFilters::clear()
 {
-    this->___objectList.clear();
-    return*this;
-}
-
-QList<MUFormFilter *> &MUFormFilters::list()
-{
-    return this->___objectList;
+    dPvt();
+    p.clear();
+    MUFormObjectModel::clear();
 }

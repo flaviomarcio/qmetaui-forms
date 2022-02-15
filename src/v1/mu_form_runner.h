@@ -7,8 +7,7 @@
 //!
 //! \brief The MUFormRunner class
 //!
-class Q_QMETAUI_FORM_EXPORT MUFormRunner:public QStm::Object
-{
+class Q_QMETAUI_FORM_EXPORT MUFormRunner:public QStm::Object{
     Q_OBJECT
 public:
     //!

@@ -42,6 +42,12 @@ MUFormLinkItemBase::~MUFormLinkItemBase()
 {
 }
 
+MUFormLinkItemBase &MUFormLinkItemBase::operator=(const MUFormLinkItemBase &v)
+{
+    Q_UNUSED(v)
+    return*this;
+}
+
 QUuid &MUFormLinkItemBase::uuid() const
 {
     dPvtI();

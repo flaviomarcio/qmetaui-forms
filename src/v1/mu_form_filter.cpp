@@ -4,6 +4,17 @@ MUFormFilter::MUFormFilter(QObject *parent):QStm::Object(parent)
 {
 }
 
+MUFormFilter *MUFormFilter::makeFrom(QObject *parent, const QVariantHash &vHash)
+{
+    auto __return=new MUFormFilter(parent);
+    if(!__return->fromHash(vHash)){
+        delete __return;
+        return nullptr;
+    }
+    return __return;
+}
+
+
 QVariant MUFormFilter::type() const
 {
     return this->v.value(qsl("type"));
@@ -114,7 +125,3 @@ MUFormFilter &MUFormFilter::setFilterStyle(const QVariant &value)
     return*this;
 }
 
-QVariant MUFormFilter::toVariant() const
-{
-    return this->v;
-}

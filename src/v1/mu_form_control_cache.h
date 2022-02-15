@@ -8,8 +8,7 @@
 //!
 //! \brief The MUFormControlCache class
 //!
-class Q_QMETAUI_FORM_EXPORT MUFormControlCache : public QObject
-{
+class Q_QMETAUI_FORM_EXPORT MUFormControlCache : public QObject{
     Q_OBJECT
 public:
 

@@ -11,22 +11,30 @@ class Q_QMETAUI_FORM_EXPORT MUFormFilter : public QStm::Object{
     Q_OBJECT
 public:
 
-    Q_PROPERTY(QVariant     type            READ type           WRITE setType            )
-    Q_PROPERTY(QVariant     value           READ value          WRITE setValue           )
-    Q_PROPERTY(QVariant     defaultValue    READ defaultValue   WRITE setDefaultValue    )
-    Q_PROPERTY(QVariant     comboValue      READ comboValue     WRITE setComboValue      )
-    Q_PROPERTY(QVariant     text            READ text           WRITE setText            )
-    Q_PROPERTY(QVariant     align           READ align          WRITE setAlign           )
-    Q_PROPERTY(QVariant     width           READ width          WRITE setWidth           )
-    Q_PROPERTY(bool         sortable        READ sortable       WRITE setSortable        )
-    Q_PROPERTY(bool         filtrable       READ filtrable      WRITE setFiltrable       )
-    Q_PROPERTY(QVariant     filterStyle     READ filterStyle    WRITE setFilterStyle     )
+    Q_PROPERTY(QVariant type READ type WRITE setType NOTIFY filterStyleChanged )
+    Q_PROPERTY(QVariant value READ value WRITE setValue NOTIFY filtrableChanged )
+    Q_PROPERTY(QVariant defaultValue READ defaultValue WRITE setDefaultValue NOTIFY sortableChanged )
+    Q_PROPERTY(QVariant comboValue READ comboValue WRITE setComboValue NOTIFY widthChanged )
+    Q_PROPERTY(QVariant text READ text WRITE setText NOTIFY alignChanged )
+    Q_PROPERTY(QVariant align READ align WRITE setAlign NOTIFY textChanged )
+    Q_PROPERTY(QVariant width READ width WRITE setWidth NOTIFY comboValueChanged )
+    Q_PROPERTY(bool sortable READ sortable WRITE setSortable NOTIFY defaultValueChanged )
+    Q_PROPERTY(bool filtrable READ filtrable WRITE setFiltrable NOTIFY valueChanged )
+    Q_PROPERTY(QVariant filterStyle READ filterStyle WRITE setFilterStyle NOTIFY typeChanged )
 
     //!
     //! \brief MUFormFilter
     //! \param parent
     //!
     Q_INVOKABLE explicit MUFormFilter(QObject*parent=nullptr);
+
+    //!
+    //! \brief makeFrom
+    //! \param parent
+    //! \param vHash
+    //! \return
+    //!
+    static MUFormFilter *makeFrom(QObject*parent, const QVariantHash&vHash);
 
     //!
     //! \brief type
@@ -98,12 +106,18 @@ public:
     virtual MUFormFilterStyle filterStyle() const;
     virtual MUFormFilter&setFilterStyle(const QVariant &value);
 
-    //!
-    //! \brief toVariant
-    //! \return
-    //!
-    virtual QVariant toVariant()const;;
 
 private:
     QVariantHash v;
+signals:
+    void typeChanged();
+    void valueChanged();
+    void defaultValueChanged();
+    void comboValueChanged();
+    void textChanged();
+    void alignChanged();
+    void widthChanged();
+    void sortableChanged();
+    void filtrableChanged();
+    void filterStyleChanged();
 };

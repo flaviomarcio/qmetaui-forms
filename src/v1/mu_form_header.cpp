@@ -4,9 +4,25 @@ MUFormHeader::MUFormHeader(QObject *parent):QStm::Object(parent)
 {
 }
 
+MUFormHeader*MUFormHeader::makeFrom(QObject *parent, const QVariantHash &vHash)
+{
+    auto __return=new MUFormHeader(parent);
+    if(!__return->fromHash(vHash)){
+        delete __return;
+        return nullptr;
+    }
+    return __return;
+}
+
 QVariant MUFormHeader::order() const
 {
     return QVariant(this->v.value(vpOrder).toInt());
+}
+
+MUFormHeader &MUFormHeader::setOrder(const QVariant &order)
+{
+    this->v.insert(vpOrder,order.toInt());
+    return*this;
 }
 
 QVariant MUFormHeader::type() const
@@ -207,19 +223,4 @@ MUFormHeader &MUFormHeader::setFilterStyle(const QVariant &value)
 {
     this->v.insert(vpFilterStyle, value.toInt());
     return*this;
-}
-
-QVariant MUFormHeader::toVar() const
-{
-    return this->v;
-}
-
-QVariantHash MUFormHeader::toHash() const
-{
-    return this->v;
-}
-
-QVariantMap MUFormHeader::toMap() const
-{
-    return QVariant(this->v).toMap();
 }

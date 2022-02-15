@@ -4,18 +4,19 @@
 #include <QAbstractItemModel>
 
 //!
-//! \brief The MUFormItems class
+//! \brief The MUFormObjectModel class
 //!
-class Q_QMETAUI_FORM_EXPORT MUFormItems : public QAbstractItemModel
+class Q_QMETAUI_FORM_EXPORT MUFormObjectModel : public QAbstractItemModel
 {
     Q_OBJECT
+    friend class MUFormObjectModelPvt;
 public:
     //!
-    //! \brief MUFormItems
+    //! \brief MUFormObjectModel
     //! \param parent
     //!
-    explicit MUFormItems(QObject *parent = nullptr);
-    ~MUFormItems();
+    explicit MUFormObjectModel(QObject *parent = nullptr);
+    ~MUFormObjectModel();
 
     //!
     //! \brief index
@@ -63,10 +64,10 @@ public:
     virtual int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
     //!
-    //! \brief isEmpty
+    //! \brief objectMetaObject
     //! \return
     //!
-    virtual bool isEmpty();
+    virtual const QMetaObject &objectMetaObject() const=0;
 
     //!
     //! \brief fromVar
@@ -92,12 +93,11 @@ public:
     //! \brief objectList
     //! \return
     //!
-    virtual QVariantList &objectList();
-    virtual MUFormItems&setObjectList(const QVariantList&objectList);
+    virtual QObjectList &objectList();
+    virtual MUFormObjectModel&setObjectList(const QObjectList&objectList);
 
 
 signals:
 private:
     void*p=nullptr;
 };
-

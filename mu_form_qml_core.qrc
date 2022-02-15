@@ -12,5 +12,8 @@
     <qresource prefix="/QMetaUI/Form/Business">
         <file>MCFormReport.qml</file>
         <file>MCFormCRUD.qml</file>
+        <file>MCFormFilters.qml</file>
+        <file>MCFormItems.qml</file>
+        <file>MCFormHeaders.qml</file>
     </qresource>
 </RCC>

@@ -8,9 +8,6 @@
 
 Q_GLOBAL_STATIC(QVariantHash, MUFormServerSettings)
 
-#define dPvt()\
-auto&p = *reinterpret_cast<MUFormBodyPvt*>(this->p)
-
 static void initMUFormServerSettingsCache()
 {
     QVariantHash __MUFormServerSettings;
@@ -52,6 +49,9 @@ static void initMUFormServerSettingsCache()
 
 Q_COREAPP_STARTUP_FUNCTION(initMUFormServerSettingsCache)
 
+
+#define dPvt()\
+auto&p = *reinterpret_cast<MUFormBodyPvt*>(this->p)
 
 class Q_QMETAUI_FORM_EXPORT MUFormBodyPvt{
 public:
@@ -99,16 +99,22 @@ MUFormBody::~MUFormBody()
     delete&p;
 }
 
-QString MUFormBody::id() const
+MUFormBody &MUFormBody::operator=(const MUFormBody &v)
 {
-    dPvt();
-    return p.muFormControls.id();
+    Q_UNUSED(v)
+    return*this;
 }
 
-MUFormBody &MUFormBody::setId(const QVariant &value)
+QString MUFormBody::resource() const
 {
     dPvt();
-    p.muFormControls.id(value);
+    return p.muFormControls.resource();
+}
+
+MUFormBody &MUFormBody::setResource(const QVariant &value)
+{
+    dPvt();
+    p.muFormControls.setResource(value);
     return*this;
 }
 
@@ -244,6 +250,13 @@ MUFormBody &MUFormBody::setSettings(const QVariant &setting)
 {
     dPvt();
     p.muFormControls.setSettings(setting.toHash());
+    return*this;
+}
+
+MUFormBody &MUFormBody::setFileName(const QString &fileName)
+{
+    dPvt();
+    p.muFormControls.setFileName(fileName);
     return*this;
 }
 

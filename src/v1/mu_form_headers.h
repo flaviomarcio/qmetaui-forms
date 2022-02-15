@@ -1,11 +1,12 @@
 #pragma once
 
 #include "./mu_form_header.h"
+#include "./mu_form_object_model.h"
 
 //!
 //! \brief The MUFormHeaders class
 //!
-class Q_QMETAUI_FORM_EXPORT MUFormHeaders:public QStm::Object{
+class Q_QMETAUI_FORM_EXPORT MUFormHeaders:public MUFormObjectModel{
     Q_OBJECT
 public:
 
@@ -20,31 +21,38 @@ public:
     //! \param parent
     //!
     explicit MUFormHeaders(QObject*parent=nullptr);
+    ~MUFormHeaders();
+
+    //!
+    //! \brief objectMetaObject
+    //! \return
+    //!
+    virtual const QMetaObject &objectMetaObject() const;
 
     //!
     //! \brief clear
     //! \return
     //!
-    virtual MUFormHeaders&clear();
+    virtual void clear();
 
     //!
     //! \brief toVar
     //! \return
     //!
-    virtual QVariant toVar()const;;
+    virtual QVariant toVar()const;
 
     //!
     //! \brief toList
     //! \return
     //!
-    virtual QVariant toList()const;;
+    virtual QVariant toList()const;
 
     //!
     //! \brief get
     //! \param v
     //! \return
     //!
-    virtual MUFormHeader* get(const QString&v);
+    virtual MUFormHeader*get(const QString&v);
 
     //!
     //! \brief remove
@@ -89,8 +97,6 @@ public:
     //! \brief reOrder
     //!
     virtual void reOrder();
-
-protected:
-    QMap<QString, MUFormHeader*> ___objectMap;
-    QList<MUFormHeader*> ___objectList;
+private:
+    void*p=nullptr;
 };

@@ -15,7 +15,5 @@ Item {
         id: controlCache
     }
 
-
     Component.onCompleted: formLoader.load()
-
 }

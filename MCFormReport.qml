@@ -1,19 +1,26 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtReforce.Meta.Network 0.0
+import QtReforce.Meta.Forms 0.0
 import "qrc:/QMetaUI/Form/Core"
 import "qrc:/QMetaUI/Form/Basic"
 
 MCFormControlItem {
     id: control
 
-    property string source:""
+    property string resource:""
+
+    MUFormBody{
+        id: muFormBody
+        resource: "ServerService::PublisherCRUD"
+    }
 
     MURequestModel {
         id: request
 
         onRequestStart:{
-            control.requestStarted()
+//            control.requestStarted()
+            muFormBody.setFileName(":/moduleDemo/crud.json")
         }
 
         onRequestSuccess:{

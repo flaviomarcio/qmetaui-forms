@@ -24,7 +24,9 @@ HEADERS += \
     $$PWD/mu_form_link.h \
     $$PWD/mu_form_links.h \
     $$PWD/mu_form_macro.h \
+    $$PWD/mu_form_object_model.h \
     $$PWD/mu_form_register.h \
+    $$PWD/mu_form_request_model.h \
     $$PWD/mu_form_runner.h \
     $$PWD/mu_form_setting.h \
     $$PWD/mu_form_types.h \
@@ -43,7 +45,9 @@ SOURCES += \
     $$PWD/mu_form_link.cpp \
     $$PWD/mu_form_links.cpp \
     $$PWD/mu_form_controls.cpp \
+    $$PWD/mu_form_object_model.cpp \
     $$PWD/mu_form_register.cpp \
+    $$PWD/mu_form_request_model.cpp \
     $$PWD/mu_form_runner.cpp \
     $$PWD/mu_form_setting.cpp \
     $$PWD/private/p_mu_form_link_base.cpp

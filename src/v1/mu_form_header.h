@@ -10,48 +10,62 @@
 class Q_QMETAUI_FORM_EXPORT MUFormHeader : public QStm::Object{
     Q_OBJECT
 public:
+    //!
+    //! \brief The FilterStyle enum
+    //!
     enum FilterStyle{
         dsAutoDectect=MUFormFilterStyle::fsAutoDectect
     };
 
+    //!
+    //! \brief The Alignment enum
+    //!
     enum Alignment{
         Start=faStart, Center=faCenter, End=faEnd
     };
 
     Q_ENUM(FilterStyle)
 
-    Q_PROPERTY(QVariant     order               READ order              WRITE setOrder              )
-    Q_PROPERTY(QVariant     type                READ type               WRITE setType               )
-    Q_PROPERTY(QVariant     value               READ value              WRITE setValue              )
-    Q_PROPERTY(QVariant     defaultValue        READ defaultValue       WRITE setDefaultValue       )
-    Q_PROPERTY(QVariant     text                READ text               WRITE setText               )
-    Q_PROPERTY(QVariant     length              READ length             WRITE setLength             )
-    Q_PROPERTY(QVariant     align               READ align              WRITE setAlign              )
-    Q_PROPERTY(QVariant     width               READ width              WRITE setWidth              )
-    Q_PROPERTY(bool         visible             READ visible            WRITE setVisible            )
-    Q_PROPERTY(bool         editable            READ editable           WRITE setEditable           )
-    Q_PROPERTY(bool         sortable            READ sortable           WRITE setSortable           )
-    Q_PROPERTY(bool         filtrable           READ filtrable          WRITE setFiltrable          )
-    Q_PROPERTY(QVariant     filterStyle         READ filterStyle        WRITE setFilterStyle        )
-    Q_PROPERTY(QVariant     filtrableStrategy   READ filtrableStrategy  WRITE setFiltrableStrategy  )
-    Q_PROPERTY(QVariant     readOnly            READ readOnly           WRITE setReadOnly           )
-    Q_PROPERTY(QVariant     defaultSelect       READ defaultSelect      WRITE setDefaultSelect      )
-    Q_PROPERTY(QVariant     inputType           READ inputType          WRITE setInputType          )
-    Q_PROPERTY(QVariant     inputMask           READ inputMask          WRITE setInputMask          )
-    Q_PROPERTY(QVariant     inputLinks          READ inputLinks         WRITE setInputLinks         )
+    Q_PROPERTY(QVariant order READ order WRITE setOrder NOTIFY typeChanged )
+    Q_PROPERTY(QVariant type READ type WRITE setType NOTIFY orderChanged )
+    Q_PROPERTY(QVariant value READ value WRITE setValue NOTIFY inputLinksChanged )
+    Q_PROPERTY(QVariant defaultValue READ defaultValue WRITE setDefaultValue NOTIFY inputMaskChanged )
+    Q_PROPERTY(QVariant text READ text WRITE setText NOTIFY inputTypeChanged )
+    Q_PROPERTY(QVariant length READ length WRITE setLength NOTIFY defaultSelectChanged )
+    Q_PROPERTY(QVariant align READ align WRITE setAlign NOTIFY readOnlyChanged )
+    Q_PROPERTY(QVariant width READ width WRITE setWidth NOTIFY filtrableStrategyChanged )
+    Q_PROPERTY(bool visible READ visible WRITE setVisible NOTIFY filterStyleChanged )
+    Q_PROPERTY(bool editable READ editable WRITE setEditable NOTIFY filtrableChanged )
+    Q_PROPERTY(bool sortable READ sortable WRITE setSortable NOTIFY sortableChanged )
+    Q_PROPERTY(bool filtrable READ filtrable WRITE setFiltrable NOTIFY editableChanged )
+    Q_PROPERTY(QVariant filterStyle READ filterStyle WRITE setFilterStyle NOTIFY visibleChanged )
+    Q_PROPERTY(QVariant filtrableStrategy READ filtrableStrategy WRITE setFiltrableStrategy NOTIFY widthChanged )
+    Q_PROPERTY(QVariant readOnly READ readOnly WRITE setReadOnly NOTIFY alignChanged )
+    Q_PROPERTY(QVariant defaultSelect READ defaultSelect WRITE setDefaultSelect NOTIFY lengthChanged )
+    Q_PROPERTY(QVariant inputType READ inputType WRITE setInputType NOTIFY textChanged )
+    Q_PROPERTY(QVariant inputMask READ inputMask WRITE setInputMask NOTIFY defaultValueChanged )
+    Q_PROPERTY(QVariant inputLinks READ inputLinks WRITE setInputLinks NOTIFY valueChanged )
 
+    //!
+    //! \brief MUFormHeader
+    //! \param parent
+    //!
     Q_INVOKABLE explicit MUFormHeader(QObject*parent=nullptr);
+
+    //!
+    //! \brief makeFrom
+    //! \param parent
+    //! \param vHash
+    //! \return
+    //!
+    static MUFormHeader *makeFrom(QObject*parent, const QVariantHash&vHash);
 
     //!
     //! \brief order
     //! \return
     //!
     virtual QVariant order() const;
-    virtual MUFormHeader&setOrder(const QVariant &order)
-    {
-        this->v.insert(vpOrder,order.toInt());
-        return*this;
-    }
+    virtual MUFormHeader&setOrder(const QVariant &order);
 
     //!
     //! \brief type
@@ -179,24 +193,26 @@ public:
     virtual MUFormFilterStyle filterStyle() const;
     virtual MUFormHeader&setFilterStyle(const QVariant &value);
 
-    //!
-    //! \brief toVar
-    //! \return
-    //!
-    virtual QVariant toVar()const;;
-
-    //!
-    //! \brief toHash
-    //! \return
-    //!
-    QVariantHash toHash()const;;
-
-    //!
-    //! \brief toMap
-    //! \return
-    //!
-    virtual QVariantMap toMap()const;;
-
+signals:
+    void typeChanged();
+    void orderChanged();
+    void inputLinksChanged();
+    void inputMaskChanged();
+    void inputTypeChanged();
+    void defaultSelectChanged();
+    void readOnlyChanged();
+    void filtrableStrategyChanged();
+    void filterStyleChanged();
+    void filtrableChanged();
+    void sortableChanged();
+    void editableChanged();
+    void visibleChanged();
+    void widthChanged();
+    void alignChanged();
+    void lengthChanged();
+    void textChanged();
+    void defaultValueChanged();
+    void valueChanged();
 private:
     QVariantHash v;
 };

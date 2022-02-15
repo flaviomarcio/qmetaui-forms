@@ -6,10 +6,11 @@
 //!
 //! \brief The MUFormBody class
 //!
-class Q_QMETAUI_FORM_EXPORT MUFormBody : public QStm::Object
-{
+class Q_QMETAUI_FORM_EXPORT MUFormBody : public QStm::Object{
     Q_OBJECT
 public:
+
+    Q_PROPERTY(QString resource READ resource WRITE setResource NOTIFY resourceChanged)
 
     QMETAUI_FORM_DECLARE_TYPE(dftReportForm)
     QMETAUI_FORM_DECLARE_LAYOUT(dflVerticalControls)
@@ -33,11 +34,18 @@ public:
     ~MUFormBody();
 
     //!
+    //! \brief operator =
+    //! \param v
+    //! \return
+    //!
+    MUFormBody&operator=(const MUFormBody&v);
+
+    //!
     //! \brief id
     //! \return
     //!
-    virtual QString id() const;
-    virtual MUFormBody&setId(const QVariant &v);
+    virtual QString resource() const;
+    virtual MUFormBody&setResource(const QVariant &v);
 
     //!
     //! \brief type
@@ -119,7 +127,8 @@ public:
     //! \param setting
     //! \return
     //!
-    virtual MUFormBody&setSettings(const QVariant&setting);
+    Q_INVOKABLE virtual MUFormBody&setSettings(const QVariant&setting);
+    Q_INVOKABLE virtual MUFormBody&setFileName(const QString&fileName);
 
     //!
     //! \brief clear
@@ -129,4 +138,6 @@ public:
 
 private:
     void*p=nullptr;
+signals:
+    void resourceChanged();
 };
