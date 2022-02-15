@@ -16,6 +16,6 @@ MUFormRegister::~MUFormRegister()
 void MUFormRegister::init(QQmlApplicationEngine &engine)
 {
     Q_UNUSED(engine)
-    MU_DECLARE_CLASS_META_FORMS(MUFormBody);
-    MU_DECLARE_CLASS_META_FORMS(MUFormControlCache);
+    //MU_DECLARE_CLASS_META_FORMS(MUFormBody);
+    //MU_DECLARE_CLASS_META_FORMS(MUFormControlCache);
 }
